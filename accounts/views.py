@@ -4,8 +4,6 @@ from django.contrib import auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import Group
 
-
-# Create your views here.
 def signup(request):
     if request.method == 'POST':
         isPasswordValid = (request.POST['password'] == request.POST['password2']) and (len(request.POST['password']) > 7)
@@ -31,7 +29,7 @@ def signup(request):
                     studentGroup.user_set.add(user)
                 else:
                     teacherGroup.user_set.add(user)
-                    
+
                 auth.login(request, user)
 
                 return redirect('signup')

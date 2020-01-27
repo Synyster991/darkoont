@@ -1,1 +1,39 @@
-LOGIN
+{% extends 'base.html' %}
+
+{% block contect %}
+
+<form method="POST" action="{% url 'login' %}">{% csrf_token %}
+    <div class="row justify-content-center pb-3">
+        <div class="col-6 ">
+            <h2 class="display-4 pt-4 ">Log In</h2>
+        </div>
+    </div>
+    <div class="row row justify-content-center">
+        <div class="col-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="username">
+            </div>
+        </div>
+    </div>
+    <div class="row row justify-content-center">
+        <div class="col-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                </div>
+                <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="password">
+            </div>
+        </div>
+    </div>
+    <div class="row row justify-content-center">
+        <div class="col-6">
+            <div class="input-group mb-3">
+                <button type="submit" class="btn btn-secondary btn-lg btn-block">Log In</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

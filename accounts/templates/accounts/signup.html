@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 
 {% block contect %}
-<h2 class="display-4 pt-4">Sign Up</h2>
+<div class="row justify-content-center pb-3">
+    <div class="col-6 ">
+        <h2 class="display-4 pt-4 ">Sign Up</h2>
+    </div>
+</div>
 {% if error %}
     <h5 style="color: red; padding: .5rem 0rem;">{{ error }}</h5>
 {% endif %}
 
 <form method="POST" action="{% url 'signup' %}">{% csrf_token %}
-    <div class="row pt-3">
-        <div class="col-6">
+    <div class="row justify-content-center pt-3">
+        <div class="col-6 ">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">First Name</span>
@@ -17,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row row justify-content-center">
         <div class="col-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -27,7 +31,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row row justify-content-center">
         <div class="col-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -37,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row row justify-content-center">
         <div class="col-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -47,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row row justify-content-center">
         <div class="col-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -57,7 +61,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row row justify-content-center">
         <div class="col-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -67,7 +71,7 @@
             </div>
         </div>
     </div>
-    <div class="row pb-3">
+    <div class="row row justify-content-center pb-3">
         <div class="col-6">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="typeUser" id="exampleRadios1" value="student">
@@ -83,7 +87,7 @@
               </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row row justify-content-center">
         <div class="col-6">
             <div class="input-group mb-3">
                 <button type="submit" class="btn btn-secondary btn-lg btn-block">Create Profile</button>

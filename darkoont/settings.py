@@ -56,7 +56,7 @@ ROOT_URLCONF = 'darkoont.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['darkoont/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

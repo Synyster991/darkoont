@@ -1,17 +1,41 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
 
 {% block contect %}
+
 {% if user.is_authenticated %}
-
+    
     {% if isTeacher %}
-        <h1>Teacher</h1>
+        <div class="row pt-4">
+            <div class="col-4">
+                <img src="{% static 'teacher.png' %}" width="75%" class="d-inline-block alighn-top">
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-3">
+                <h4 class="font-weight-light"><span class="oi oi-person"></span> Teacher Version</h4>
+            </div>
+        </div>
     {% else %}
-        <h2>Student</h2>
+        <div class="row pt-4">
+            <div class="col-4">
+                <img src="{% static 'student.png' %}" width="75%" class="d-inline-block alighn-top">
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-3">
+                <h4 class="font-weight-light"><span class="oi oi-person"></span> Student Version</h4>
+            </div>
+        </div>
     {% endif %}
-
-    {{ user.first_name }}<br>
-    {{ user.last_name }}<br>
-    {{ user.email}}<br>
+    <div class="row">
+        <div class="col-4">
+            <span class="font-weight-bolder">First Name: </span>{{ user.first_name }}<br>
+            <span class="font-weight-bolder">Last Name: </span> {{ user.last_name }}<br>
+            <span class="font-weight-bolder">Email: </span>{{ user.email}}<br>
+        </div>
+    </div>
 {% else %}
     <h1>You need to be logged in to use this website.</h1>
 {% endif %}

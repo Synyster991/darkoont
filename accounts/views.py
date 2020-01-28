@@ -4,6 +4,10 @@ from django.contrib import auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import Group
 
+def home(request):
+    
+    return render(request, 'accounts/home.html')
+
 def signup(request):
     if request.method == 'POST':
         isPasswordValid = (request.POST['password'] == request.POST['password2']) and (len(request.POST['password']) > 7)
@@ -18,7 +22,8 @@ def signup(request):
                 user.last_name = request.POST['lname']
                 user.email = request.POST['email']
                 user.username = request.POST['username']
-                user.password = request.POST['password']
+                # user.password = request.POST['password']
+                user.set_password(request.POST['password'])
 
                 user.save()
 
@@ -30,9 +35,16 @@ def signup(request):
                 else:
                     teacherGroup.user_set.add(user)
 
+                users_in_group = Group.objects.get(name="Student").user_set.all()
+
+                if user in users_in_group:
+                    isTeacher = False
+                else:
+                    isTeacher = True
+
                 auth.login(request, user)
 
-                return redirect('signup')
+                return render(request, 'accounts/home.html', {"isTeacher":isTeacher})
         else:
              return render(request, 'accounts/signup.html', {"error": "Invalid password!"})
     else:
@@ -40,4 +52,28 @@ def signup(request):
 
 
 def login(request):
-    return(render(request, 'accounts/login.html'))
+    if request.method == 'POST':
+        user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
+
+        if user is not None:
+            isTeacher = False
+            users_in_group = Group.objects.get(name="Student").user_set.all()
+
+            if user in users_in_group:
+                isTeacher = False
+            else:
+                isTeacher = True
+
+            auth.login(request, user)
+            return render(request, 'accounts/home.html', {"isTeacher":isTeacher})
+        else:
+            return render(request, 'accounts/login.html', {"error":"Username or password is incorrect!"})
+    else:
+        return render(request, 'accounts/login.html')
+        
+
+def logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+
+        return redirect('home')

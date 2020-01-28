@@ -6,6 +6,9 @@
     <div class="row justify-content-center pb-3">
         <div class="col-6 ">
             <h2 class="display-4 pt-4 ">Log In</h2>
+            {% if error %}
+                <h5 style="color: red; padding: .5rem 0rem;">{{ error }}</h5>
+            {% endif %}
         </div>
     </div>
     <div class="row row justify-content-center">

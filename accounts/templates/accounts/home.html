@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block contect %}
+{% if user.is_authenticated %}
+
+    {% if isTeacher %}
+        <h1>Teacher</h1>
+    {% else %}
+        <h2>Student</h2>
+    {% endif %}
+
+    {{ user.first_name }}<br>
+    {{ user.last_name }}<br>
+    {{ user.email}}<br>
+{% else %}
+    <h1>You need to be logged in to use this website.</h1>
+{% endif %}
+{% endblock %}

@@ -5,13 +5,17 @@ from django.core.validators import validate_email
 from django.contrib.auth.models import Group
 
 def home(request):
-    studentGroup = Group.objects.get(name='Student') 
-    teacherGroup = Group.objects.get(name='Teacher')
+    userName = request.user.get_username()
+    user = User.objects.get(username=userName)
 
-    if request.POST['typeUser'] == "student":
-        studentGroup.user_set.add(user)
+    # group = Group.objects.get(name="Student")
+    users_in_group = Group.objects.get(name="Student").user_set.all()
+
+    if user in users_in_group:
+        isTeacher = False
     else:
-        teacherGroup.user_set.add(user)
+        isTeacher = True
+
 
     return render(request, 'accounts/home.html', {"isTeacher":isTeacher})
 
@@ -84,4 +88,4 @@ def logout(request):
     if request.method == 'POST':
         auth.logout(request)
 
-        return redirect('home')
+        return render(request, 'accounts/login.html')

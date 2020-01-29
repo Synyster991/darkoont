@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import AssignmentTeacherSide
 
 
@@ -21,3 +21,9 @@ def create(request):
         return render(request, 'assignments/create.html')
 
     return render(request, 'assignments/create.html')
+
+
+def detail(request, assignment_id):
+    assignment = get_object_or_404(AssignmentTeacherSide, pk=assignment_id)
+
+    return render(request, 'assignments/detail.html', {"assignment": assignment})

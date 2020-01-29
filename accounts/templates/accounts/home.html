@@ -41,6 +41,9 @@
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
+                            <td colspan="5" style="text-align: center;"><h3 class="font-weight-light">Active Homework</h3></td>
+                        </tr>
+                        <tr>
                             <th scope="col">Title</th>
                             <th scope="col">Max Points</th>
                             <th scope="col">Due Date</th>
@@ -55,7 +58,7 @@
                             <td>{{ assignment.maxPoint}}</td>
                             <td>{{ assignment.dueDate}}</td>
                             <td>{{ assignment.teacherUser }}</td>
-                            <td><a href="#"><button type="button" class="btn btn-info">Show Me</button></a></td>
+                            <td><a href="{% url 'detail' assignment.id %}"><button type="button" class="btn btn-info">Show Me</button></a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -4,12 +4,14 @@ from django.contrib import auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import Group
 from assignments.models import AssignmentTeacherSide
+from django.utils import timezone
 
 def home(request):
     try:
         userName = request.user.get_username()
         user = User.objects.get(username=userName)
         assignments = AssignmentTeacherSide.objects
+        time = timezone.datetime.now()
 
         # group = Group.objects.get(name="Student")
         users_in_group = Group.objects.get(name="Student").user_set.all()

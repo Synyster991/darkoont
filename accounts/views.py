@@ -16,6 +16,7 @@ def home(request):
         users_in_group = Group.objects.get(name="Student").user_set.all()
         validStudents = users_in_group
 
+
         if user in users_in_group:
             isTeacher = False
         else:
@@ -43,6 +44,14 @@ def signup(request):
                 # user.password = request.POST['password']
                 user.set_password(request.POST['password'])
 
+                if request.POST['typeUser'] == "teacher":
+                    if request.POST['token'] == "1234":
+                        pass
+                    else:
+                        return render(request, 'accounts/signup.html', {"error": "Your token is invalid!"})
+                else:
+                    pass
+
                 user.save()
 
                 studentGroup = Group.objects.get(name='Student') 
@@ -60,9 +69,9 @@ def signup(request):
                 else:
                     isTeacher = True
 
-                auth.login(request, user)
+                # auth.login(request, user)
 
-                return render(request, 'accounts/home.html', {"isTeacher":isTeacher})
+                return render(request, 'accounts/login.html')
         else:
              return render(request, 'accounts/signup.html', {"error": "Invalid password!"})
     else:

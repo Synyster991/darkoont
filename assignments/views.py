@@ -14,11 +14,10 @@ def create(request):
             assignment.teacherUser = request.user
             assignment.save()
 
-            return redirect('home') # TODO change it to render to pass isTeacher
+            return render(request, 'accounts/home.html', {"isTeacher":True})
         else:
             return render(request, 'assignments/create.html', {"error":"All fields are required!"})
     else:
         return render(request, 'assignments/create.html')
-
 
     return render(request, 'assignments/create.html')

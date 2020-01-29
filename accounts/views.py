@@ -5,8 +5,16 @@ from django.core.validators import validate_email
 from django.contrib.auth.models import Group
 
 def home(request):
-    
-    return render(request, 'accounts/home.html')
+    studentGroup = Group.objects.get(name='Student') 
+    teacherGroup = Group.objects.get(name='Teacher')
+
+    if request.POST['typeUser'] == "student":
+        studentGroup.user_set.add(user)
+    else:
+        teacherGroup.user_set.add(user)
+
+    return render(request, 'accounts/home.html', {"isTeacher":isTeacher})
+
 
 def signup(request):
     if request.method == 'POST':

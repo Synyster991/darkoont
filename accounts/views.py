@@ -3,21 +3,25 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import Group
+from assignments.models import AssignmentTeacherSide
 
 def home(request):
-    userName = request.user.get_username()
-    user = User.objects.get(username=userName)
+    try:
+        userName = request.user.get_username()
+        user = User.objects.get(username=userName)
+        assignments = AssignmentTeacherSide.objects
 
-    # group = Group.objects.get(name="Student")
-    users_in_group = Group.objects.get(name="Student").user_set.all()
+        # group = Group.objects.get(name="Student")
+        users_in_group = Group.objects.get(name="Student").user_set.all()
 
-    if user in users_in_group:
-        isTeacher = False
-    else:
-        isTeacher = True
+        if user in users_in_group:
+            isTeacher = False
+        else:
+            isTeacher = True
 
-
-    return render(request, 'accounts/home.html', {"isTeacher":isTeacher})
+        return render(request, 'accounts/home.html', {"isTeacher":isTeacher, "assignments":assignments})
+    except DoesNotExist:
+        pass
 
 
 def signup(request):
@@ -64,6 +68,8 @@ def signup(request):
 
 
 def login(request):
+    assignments = AssignmentTeacherSide.objects
+
     if request.method == 'POST':
         user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
 
@@ -77,7 +83,7 @@ def login(request):
                 isTeacher = True
 
             auth.login(request, user)
-            return render(request, 'accounts/home.html', {"isTeacher":isTeacher})
+            return render(request, 'accounts/home.html', {"isTeacher":isTeacher, "assignments":assignments})
         else:
             return render(request, 'accounts/login.html', {"error":"Username or password is incorrect!"})
     else:

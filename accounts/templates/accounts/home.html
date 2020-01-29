@@ -20,9 +20,29 @@
                 <a href="{% url 'teacherAssignments' %}"><button type="button" class="btn btn-success mt-1"><span class="oi oi-book"></span> See Assignments</button></span> </a>
             </div>
         </div>
-        <div class="row pt-2">
-            <div class="col-3">
-                
+        <div class="row pt-5">
+            <div class="col-12">
+                <table class="table table-hover table-dark">
+                    <thead>
+                        <tr>
+                            <td colspan="5" style="text-align: center;"><h3 class="font-weight-light">Students</h3></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Username</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for validStudent in validStudents.all%}
+                            <tr>
+                                <td>{{ validStudent.first_name }} {{ validStudent.last_name }}</td>
+                                <td>{{ validStudent.email}}</td>
+                                <td>{{ validStudent.username }}</td>
+                            </tr>
+                        {% endfor %}
+                    <tbody>
+                </table>       
             </div>
         </div>
     {% else %}

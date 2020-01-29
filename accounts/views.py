@@ -12,17 +12,17 @@ def home(request):
         user = User.objects.get(username=userName)
         assignments = AssignmentTeacherSide.objects
         time = timezone.datetime.now()
-
-        # group = Group.objects.get(name="Student")
+        users = User.objects
         users_in_group = Group.objects.get(name="Student").user_set.all()
+        validStudents = users_in_group
 
         if user in users_in_group:
             isTeacher = False
         else:
             isTeacher = True
 
-        return render(request, 'accounts/home.html', {"isTeacher":isTeacher, "assignments":assignments})
-    except DoesNotExist:
+        return render(request, 'accounts/home.html', {"isTeacher":isTeacher, "assignments":assignments, "validStudents": validStudents})
+    except ValueError:
         pass
 
 

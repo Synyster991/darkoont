@@ -16,7 +16,8 @@
                 <span class="font-weight-bolder">First Name: </span>{{ user.first_name }}<br>
                 <span class="font-weight-bolder">Last Name: </span> {{ user.last_name }}<br>
                 <span class="font-weight-bolder">Email: </span>{{ user.email}}<br><br>
-                <a href="{% url 'create' %}"><button type="button" class="btn btn-success"><span class="oi oi-plus"></span> Create Assignment</button></span> </a>
+                <a href="{% url 'create' %}"><button type="button" class="btn btn-success"><span class="oi oi-plus"></span> Create Assignment</button></span></a><br>
+                <a href="{% url 'teacherAssignments' %}"><button type="button" class="btn btn-success mt-1"><span class="oi oi-book"></span> See Assignments</button></span> </a>
             </div>
         </div>
         <div class="row pt-2">

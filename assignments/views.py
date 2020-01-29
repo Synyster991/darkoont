@@ -27,3 +27,9 @@ def detail(request, assignment_id):
     assignment = get_object_or_404(AssignmentTeacherSide, pk=assignment_id)
 
     return render(request, 'assignments/detail.html', {"assignment": assignment})
+
+
+def teacherAssignments(request):
+    assignments = AssignmentTeacherSide.objects
+
+    return render(request, 'assignments/teacherAssignments.html', {"assignments": assignments})

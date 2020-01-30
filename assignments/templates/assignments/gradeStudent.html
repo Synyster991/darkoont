@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block contect %}
+    {% for validAssignment in validAssignments %}
+        <h3> {{ validAssignment }}</h3>
+    {% endfor %}
+{% endblock %}

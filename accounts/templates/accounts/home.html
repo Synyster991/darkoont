@@ -18,6 +18,19 @@
                 <span class="font-weight-bolder">Email: </span>{{ user.email}}<br><br>
                 <a href="{% url 'create' %}"><button type="button" class="btn btn-success"><span class="oi oi-plus"></span> Create Assignment</button></span></a><br>
                 <a href="{% url 'teacherAssignments' %}"><button type="button" class="btn btn-success mt-1"><span class="oi oi-book"></span> See Assignments</button></span> </a>
+                <form method="POST" action="{% url 'gradeStudent' %}">{% csrf_token %}
+                    <div class="input-group mt-1">
+                            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="studentID">
+                                <option selected>Student Name</option>
+                                {% for validStudent in validStudents.all%}
+                                    <option value="{{ validStudent.username }}">{{ validStudent.last_name }} {{ validStudent.first_name }}</option>
+                                {% endfor %}
+                            </select>
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit"><span class="oi oi-pie-chart"></span> Grades</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="row pt-5">

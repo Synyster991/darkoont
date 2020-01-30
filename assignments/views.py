@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import AssignmentTeacherSide, studentAssignments
+from django.contrib.auth.models import User
+from .models import studentAssignments
 
 
 def create(request):
@@ -37,7 +39,7 @@ def teacherAssignments(request):
 
 def submitAssignmentStudent(request, assignment_id):
     tempAssignment = studentAssignments()
-    realAssignment = assignment = get_object_or_404(AssignmentTeacherSide, pk=assignment_id)
+    realAssignment = get_object_or_404(AssignmentTeacherSide, pk=assignment_id) # = assignment =
 
     if request.method == 'POST':
         tempAssignment.assignment = realAssignment
@@ -47,3 +49,16 @@ def submitAssignmentStudent(request, assignment_id):
         tempAssignment.save()
     
     return redirect('home')
+
+
+def gradeStudent(request):
+    if request.method == 'POST':
+        user = User.objects.get(username=request.POST['studentID'])
+        assignments = studentAssignments.objects
+        validAssignments = []
+
+        for assignment in assignments.all():
+            if assignment.studentUser == user:
+                validAssignments.append(assignment)
+
+    return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments})

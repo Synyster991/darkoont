@@ -82,6 +82,7 @@ def signup(request):
 
 def login(request):
     assignments = AssignmentTeacherSide.objects
+    users_in_group = Group.objects.get(name="Student").user_set.all()
 
     if request.method == 'POST':
         user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
@@ -96,7 +97,7 @@ def login(request):
                 isTeacher = True
 
             auth.login(request, user)
-            return render(request, 'accounts/home.html', {"isTeacher":isTeacher, "assignments":assignments})
+            return render(request, 'accounts/home.html', {"isTeacher":isTeacher, "assignments":assignments, "validStudents": users_in_group})
         else:
             return render(request, 'accounts/login.html', {"error":"Username or password is incorrect!"})
     else:

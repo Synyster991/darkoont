@@ -20,6 +20,6 @@ class studentAssignments(models.Model):
     studentUser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        # Last Name First Name (points/maxPoints)
-        return "{} {} ({}/{})".format(self.studentUser.last_name, self.studentUser.first_name, self.points, self.assignment.maxPoint)
+        # Title - Last Name First Name (points/maxPoints)
+        return "{} - {} {} ({}/{})".format(self.assignment.title, self.studentUser.last_name, self.studentUser.first_name, self.points, self.assignment.maxPoint)
 

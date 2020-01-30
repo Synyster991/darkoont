@@ -31,7 +31,10 @@
         <div class="card">
             <div class="card-body">
               <p class="card-text">{{ assignment.instructions }}</p>
-              <button type="button" class="btn btn-success btn-block">Submit</button>
+              <form method="POST" action="{% url 'submitAssignmentStudent' assignment.id %}" enctype="multipart/form-data">{% csrf_token %}
+                    <input type="file" name="myfile">
+                    <button type="submit" class="btn btn-success btn-block mt-4">Submit</button>
+              </form>
             </div>
           </div>
     </div>

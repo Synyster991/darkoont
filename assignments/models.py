@@ -11,3 +11,15 @@ class AssignmentTeacherSide(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class studentAssignments(models.Model):
+    assignment = models.ForeignKey(AssignmentTeacherSide, on_delete=models.CASCADE)
+    points = models.IntegerField()
+    document = models.FileField(upload_to='documents/')
+    studentUser = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        # Last Name First Name (points/maxPoints)
+        return "{} {} ({}/{})".format(self.studentUser.last_name, self.studentUser.first_name, self.points, self.assignment.maxPoint)
+

@@ -28,9 +28,6 @@ def home(request):
     except User.DoesNotExist:
          return render(request, 'accounts/home.html')
 
-   
-
-
 
 def signup(request):
     if request.method == 'POST':

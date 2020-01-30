@@ -23,8 +23,13 @@ def home(request):
             isTeacher = True
 
         return render(request, 'accounts/home.html', {"isTeacher":isTeacher, "assignments":assignments, "validStudents": validStudents})
-    except ValueError:
-        pass
+  
+
+    except User.DoesNotExist:
+         return render(request, 'accounts/home.html')
+
+   
+
 
 
 def signup(request):

@@ -16,7 +16,7 @@ def create(request):
             assignment.teacherUser = request.user
             assignment.save()
 
-            return render(request, 'accounts/home.html', {"isTeacher":True})
+            return redirect('home')
         else:
             return render(request, 'assignments/create.html', {"error":"All fields are required!"})
     else:
@@ -61,4 +61,4 @@ def gradeStudent(request):
             if assignment.studentUser == user:
                 validAssignments.append(assignment)
 
-    return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments})
+    return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments, "studentInfo": user})

@@ -18,12 +18,9 @@ def home(request):
 
 
         if user in users_in_group:
-            isTeacher = False
+            return render(request, 'accounts/studentHome.html', {"assignments":assignments}) 
         else:
-            isTeacher = True
-
-        return render(request, 'accounts/home.html', {"isTeacher":isTeacher, "assignments":assignments, "validStudents": validStudents})
-  
+            return render(request, 'accounts/teacherHome.html', {"validStudents": validStudents})
 
     except User.DoesNotExist:
          return render(request, 'accounts/home.html')
@@ -64,16 +61,7 @@ def signup(request):
                 else:
                     teacherGroup.user_set.add(user)
 
-                users_in_group = Group.objects.get(name="Student").user_set.all()
-
-                if user in users_in_group:
-                    isTeacher = False
-                else:
-                    isTeacher = True
-
-                # auth.login(request, user)
-
-                return render(request, 'accounts/login.html')
+                return redirect('home')
         else:
              return render(request, 'accounts/signup.html', {"error": "Invalid password!"})
     else:
@@ -97,7 +85,7 @@ def login(request):
                 isTeacher = True
 
             auth.login(request, user)
-            return render(request, 'accounts/home.html', {"isTeacher":isTeacher, "assignments":assignments, "validStudents": users_in_group})
+            return redirect('home')
         else:
             return render(request, 'accounts/login.html', {"error":"Username or password is incorrect!"})
     else:

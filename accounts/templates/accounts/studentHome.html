@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block contect %}
+
+{% if user.is_authenticated %}
+<div class="row pt-4">
+    <div class="col-3">
+        <img src="{% static 'student.png' %}" width="100%" class="d-inline-block alighn-top">
+    </div>
+    <div class="col-4 pt-5">
+        <h4 class="font-weight-light"><span class="oi oi-person"></span> Student Version</h4>
+        <span class="font-weight-bolder">First Name: </span>{{ user.first_name }}<br>
+        <span class="font-weight-bolder">Last Name: </span> {{ user.last_name }}<br>
+        <span class="font-weight-bolder">Email: </span>{{ user.email}}<br><br>
+    </div>
+</div>
+<div class="row pt-5">
+    <div class="col-12">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <td colspan="5" style="text-align: center;">
+                        <h3 class="font-weight-light">Active Homework</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Max Points</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Teacher</th>
+                    <th scope="col">Instructions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assignment in assignments.all %}
+                <tr>
+                    <th scope="row">{{ assignment.title }}</th>
+                    <td>{{ assignment.maxPoint}}</td>
+                    <td>{{ assignment.dueDate}}</td>
+                    <td>{{ assignment.teacherUser }}</td>
+                    <td><a href="{% url 'detail' assignment.id %}"><button type="button" class="btn btn-info">Show
+                                Me</button></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<h1>You need to be logged in to use this website.</h1>
+{% endif %}
+{% endblock %}

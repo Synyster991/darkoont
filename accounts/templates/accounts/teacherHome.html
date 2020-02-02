@@ -9,7 +9,7 @@
     <div class="col-3">
         <img src="{% static 'teacher.png' %}" width="100%" class="d-inline-block alighn-top">
     </div>
-    <div class="col-4 pt-5">
+    <div class="col-9 pt-5">
         <h4 class="font-weight-light"><span class="oi oi-person"></span> Teacher Version</h4>
         <span class="font-weight-bolder">First Name: </span>{{ user.first_name }}<br>
         <span class="font-weight-bolder">Last Name: </span> {{ user.last_name }}<br>
@@ -18,7 +18,7 @@
                 Create Assignment</button></span></a><br>
         <a href="{% url 'teacherAssignments' %}"><button type="button" class="btn btn-success mt-1"><span
                     class="oi oi-book"></span> See Assignments</button></span> </a>
-        <form method="POST" action="{% url 'gradeStudent' %}">{% csrf_token %}
+        <form method="POST" action="{% url 'showGrades' %}">{% csrf_token %}
             <div class="input-group mt-1">
                 <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
                     name="studentID">
@@ -35,8 +35,37 @@
         </form>
     </div>
 </div>
-<div class="row pt-5">
-    <div class="col-12">
+
+<form class="mt-5 p-3 rounded-lg" style="background-color: #343A40;" method="POST" action="{% url 'gradeStudent' %}">{% csrf_token %}
+    <h3 class="text-center font-weight-light" style="color: #fff;"> Grade Student's Assignment</h3>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <select class="custom-select" id="inputGroupSelect04" name="assignmentID">
+                <option selected>Assignment</option>
+                {% for assignment in assignments.all%}
+                <option value="{{ assignment.id }}">{{ assignment.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <select class="custom-select" id="inputGroupSelect04" name="studentID">
+                <option selected>Student Name</option>
+                {% for validStudent in validStudents.all%}
+                <option value="{{ validStudent.username }}">{{ validStudent.last_name }}
+                    {{ validStudent.first_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <input placeholder="Score" type="text" class="form-control" name="gradeID">
+        </div>
+        <button class="btn btn-success btn-block" type="submit"><span class="oi oi-pie-chart"></span> Grade
+            Submission</button>
+    </div>
+</form>
+</div>
+<div class="row justify-content-center pt-5">
+    <div class="col-10">
         <table class="table table-hover table-dark">
             <thead>
                 <tr>
@@ -65,4 +94,6 @@
 {% else %}
 <h1>You need to be logged in to use this website.</h1>
 {% endif %}
+
 {% endblock %}
+

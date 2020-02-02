@@ -51,7 +51,7 @@ def submitAssignmentStudent(request, assignment_id):
     return redirect('home')
 
 
-def gradeStudent(request):
+def showGrades(request):
     if request.method == 'POST':
         user = User.objects.get(username=request.POST['studentID'])
         assignments = studentAssignments.objects
@@ -62,3 +62,25 @@ def gradeStudent(request):
                 validAssignments.append(assignment)
 
     return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments, "studentInfo": user})
+    
+
+def gradeStudent(request):
+    if request.method == 'POST':
+        studentID = User.objects.get(username=request.POST['studentID'])
+        assignmentID = AssignmentTeacherSide.objects.get(pk=request.POST['assignmentID'])
+        tempGrade = request.POST['gradeID']
+        assignment = studentAssignments.objects.get(studentUser=studentID, assignment=assignmentID)
+        assignmentPK = assignment.pk
+        
+        gradeThisAssignment = get_object_or_404(studentAssignments, pk=assignmentPK)
+        tempGrade = int(tempGrade)
+
+        if tempGrade < 0:
+            tempGrade = 0
+        elif tempGrade > 100:
+            tempGrade = 100
+        
+        gradeThisAssignment.points = tempGrade
+        gradeThisAssignment.save()
+    
+    return redirect('home')

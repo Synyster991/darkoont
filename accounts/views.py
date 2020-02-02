@@ -3,14 +3,14 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import Group
-from assignments.models import AssignmentTeacherSide
+from assignments.models import AssignmentTeacherSide, studentAssignments
 from django.utils import timezone
 
 def home(request):
     try:
         userName = request.user.get_username()
         user = User.objects.get(username=userName)
-        assignments = AssignmentTeacherSide.objects
+        assignments = AssignmentTeacherSide.objects.all()
         time = timezone.datetime.now()
         users = User.objects
         users_in_group = Group.objects.get(name="Student").user_set.all()
@@ -20,10 +20,10 @@ def home(request):
         if user in users_in_group:
             return render(request, 'accounts/studentHome.html', {"assignments":assignments}) 
         else:
-            return render(request, 'accounts/teacherHome.html', {"validStudents": validStudents})
+            return render(request, 'accounts/teacherHome.html', {"validStudents": validStudents, "assignments":assignments})
 
     except User.DoesNotExist:
-         return render(request, 'accounts/home.html')
+         return render(request, 'accounts/studentHome.html')
 
 
 def signup(request):

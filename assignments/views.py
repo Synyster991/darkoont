@@ -42,7 +42,7 @@ def submitAssignmentStudent(request, assignment_id):
 
     if request.method == 'POST':
         tempAssignment.assignment = realAssignment
-        tempAssignment.points = 0
+        tempAssignment.points = -1
         tempAssignment.document = request.FILES['myfile']
         tempAssignment.studentUser = request.user
         tempAssignment.save()
@@ -94,6 +94,7 @@ def seeMyGrades(request):
 
     for assignment in assignments:
         if assignment.studentUser == request.user:
-            gradedAssignments.append(assignment) 
+            if assignment.points >= 0:
+                gradedAssignments.append(assignment) 
 
     return render(request, 'assignments/seeMyGrades.html', {"gradedAssignments": gradedAssignments, "student":request.user})

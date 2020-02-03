@@ -3,7 +3,6 @@ from .models import AssignmentTeacherSide, studentAssignments
 from django.contrib.auth.models import User
 from .models import studentAssignments
 
-
 def create(request):
     if request.method == 'POST':
         if request.POST['title'] and request.POST['date'] and request.POST['instructions']:
@@ -65,22 +64,36 @@ def showGrades(request):
     
 
 def gradeStudent(request):
-    if request.method == 'POST':
-        studentID = User.objects.get(username=request.POST['studentID'])
-        assignmentID = AssignmentTeacherSide.objects.get(pk=request.POST['assignmentID'])
-        tempGrade = request.POST['gradeID']
-        assignment = studentAssignments.objects.get(studentUser=studentID, assignment=assignmentID)
-        assignmentPK = assignment.pk
-        
-        gradeThisAssignment = get_object_or_404(studentAssignments, pk=assignmentPK)
-        tempGrade = int(tempGrade)
+    try:
+        if request.method == 'POST':
+            studentID = User.objects.get(username=request.POST['studentID'])
+            assignmentID = AssignmentTeacherSide.objects.get(pk=request.POST['assignmentID'])
+            tempGrade = request.POST['gradeID']
+            assignment = studentAssignments.objects.get(studentUser=studentID, assignment=assignmentID)
+            assignmentPK = assignment.pk
+            
+            gradeThisAssignment = get_object_or_404(studentAssignments, pk=assignmentPK)
+            tempGrade = int(tempGrade)
 
-        if tempGrade < 0:
-            tempGrade = 0
-        elif tempGrade > 100:
-            tempGrade = 100
+            if tempGrade < 0:
+                tempGrade = 0
+            elif tempGrade > gradeThisAssignment.assignment.maxPoint:
+                tempGrade = gradeThisAssignment.assignment.maxPoint
+            
+            gradeThisAssignment.points = tempGrade
+            gradeThisAssignment.save()
         
-        gradeThisAssignment.points = tempGrade
-        gradeThisAssignment.save()
-    
-    return redirect('home')
+            return redirect('home')
+    except studentAssignments .DoesNotExist:
+        return redirect('home')
+
+
+def seeMyGrades(request):
+    assignments = studentAssignments.objects.all()
+    gradedAssignments = []
+
+    for assignment in assignments:
+        if assignment.studentUser == request.user:
+            gradedAssignments.append(assignment) 
+
+    return render(request, 'assignments/seeMyGrades.html', {"gradedAssignments": gradedAssignments, "student":request.user})

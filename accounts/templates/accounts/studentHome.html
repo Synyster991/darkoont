@@ -16,7 +16,13 @@
         <span class="font-weight-bolder">Email: </span>{{ user.email}}<br><br>
     </div>
 </div>
-<div class="row pt-5">
+<div class="row pt-3">
+    <div class="col-12">
+        <form method="POST" action="{% url 'seeMyGrades' %}">{% csrf_token %}
+        <button class="btn btn-info btn-block p-3" type="submit"><span class="oi oi-pie-chart"></span> See My Grades</button>
+    </div>
+</div>
+<div class="row pt-2">
     <div class="col-12">
         <table class="table">
             <thead class="thead-dark">

@@ -4,23 +4,29 @@ from django.contrib import auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import Group
 from assignments.models import AssignmentTeacherSide, studentAssignments
-from django.utils import timezone
+from datetime import datetime
 
 def home(request):
     try:
         userName = request.user.get_username()
         user = User.objects.get(username=userName)
         assignments = AssignmentTeacherSide.objects.all()
-        time = timezone.datetime.now()
+        validAssignments = []
+        presentTime = datetime.now()
         users = User.objects
         users_in_group = Group.objects.get(name="Student").user_set.all()
         validStudents = users_in_group
 
+        for assignment in assignments:
+            if assignment.dueDate.strftime('%Y-%m-%d %H:%M:%S') > presentTime.strftime('%Y-%m-%d %H:%M:%S'):
+                validAssignments.append(assignment) 
+
+        numOfActiveUsers = len(users_in_group) 
 
         if user in users_in_group:
-            return render(request, 'accounts/studentHome.html', {"assignments":assignments}) 
+            return render(request, 'accounts/studentHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers}) 
         else:
-            return render(request, 'accounts/teacherHome.html', {"validStudents": validStudents, "assignments":assignments})
+            return render(request, 'accounts/teacherHome.html', {"validStudents": validStudents, "assignments": assignments, "numOfActiveUsers": numOfActiveUsers})
 
     except User.DoesNotExist:
          return render(request, 'accounts/studentHome.html')
@@ -96,4 +102,4 @@ def logout(request):
     if request.method == 'POST':
         auth.logout(request)
 
-        return render(request, 'accounts/login.html')
+        return redirect('home')

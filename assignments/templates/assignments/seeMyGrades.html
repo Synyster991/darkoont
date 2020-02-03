@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block contect %}
+<div class="row pt-5">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <td colspan="5" style="text-align: center;">
+                    <h3 class="font-weight-light">Grades For {{ student.last_name }} {{ student.first_name }}</h3>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Assignment</th>
+                <th scope="col">Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gradedAssignment in gradedAssignments %}
+            <tr>
+                <th scope="row">{{ gradedAssignment.assignment.pk }}</th>
+                <td>{{ gradedAssignment.assignment.title }}</td>
+                <td>{{ gradedAssignment.points }}/{{ gradedAssignment.assignment.maxPoint }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

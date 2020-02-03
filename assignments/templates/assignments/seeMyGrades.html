@@ -22,7 +22,11 @@
             <tr>
                 <th scope="row">{{ gradedAssignment.assignment.pk }}</th>
                 <td>{{ gradedAssignment.assignment.title }}</td>
+                {% if gradedAssignment.points == -1 %}
+                <td>Not Graded</td>
+                {% else %}
                 <td>{{ gradedAssignment.points }}/{{ gradedAssignment.assignment.maxPoint }}</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

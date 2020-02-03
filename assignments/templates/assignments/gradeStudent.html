@@ -10,7 +10,7 @@
         </tr>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Assignment</th>
+            <th scope="col">Assignment (Click to Download)</th>
             <th scope="col">Submission</th>
             <th scope="col">Points</th>
         </tr>
@@ -19,7 +19,7 @@
         {% for validAssignment in validAssignments %}
         <tr>
             <th scope="row">{{ validAssignment.pk }}</th>
-            <td>{{ validAssignment.assignment.title }}</td>
+            <td><a  class="text-muted" href="{{ validAssignment.document}}" download>{{ validAssignment.assignment.title }}</a></td>
             <td>Grade Me</td>
             <td>{{ validAssignment.points }}/{{ validAssignment.assignment.maxPoint }}</td>
         </tr>

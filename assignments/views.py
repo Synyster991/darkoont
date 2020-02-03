@@ -93,8 +93,7 @@ def seeMyGrades(request):
     gradedAssignments = []
 
     for assignment in assignments:
-        if assignment.studentUser == request.user:
-            if assignment.points >= 0:
-                gradedAssignments.append(assignment) 
+        if assignment.studentUser == request.user: 
+            gradedAssignments.append(assignment) 
 
     return render(request, 'assignments/seeMyGrades.html', {"gradedAssignments": gradedAssignments, "student":request.user})

@@ -3,7 +3,7 @@
 
 
 {% block contect %}
-<form method="POST" action="{% url 'create' %}">{% csrf_token %}
+<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">{% csrf_token %}
     <div class="row justify-content-center pb-3">
         <div class="col-6">
             <h2 class="display-4 pt-4 ">Creating Assignment</h2>
@@ -45,6 +45,26 @@
                 <span class="input-group-text" id="inputGroup-sizing-default">Max Points</span>
                 </div>
                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="points">
+            </div>
+        </div>
+    </div>
+    <div class="row row justify-content-center">
+        <div class="col-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Video Source</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="video">
+            </div>
+        </div>
+    </div>
+    <div class="row row justify-content-center">
+        <div class="col-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Document</span>
+                </div>
+                <input class="ml-2 pt-1" type="file" name="teacherfile">
             </div>
         </div>
     </div>

@@ -7,6 +7,8 @@ class AssignmentTeacherSide(models.Model):
     instructions = models.TextField()
     maxPoint = models.IntegerField()
     dueDate = models.DateTimeField()
+    teacherDocument = models.FileField(upload_to='documents/', default="")
+    videoLink = models.CharField(max_length=80, default="")
     teacherUser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

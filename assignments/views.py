@@ -13,6 +13,8 @@ def create(request):
             assignment.instructions = request.POST['instructions']
             assignment.maxPoint = request.POST['points']
             assignment.teacherUser = request.user
+            assignment.teacherDocument = request.FILES['teacherfile']
+            assignment.videoLink = request.POST['video']
             assignment.save()
 
             return redirect('home')

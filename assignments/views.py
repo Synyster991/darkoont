@@ -27,9 +27,15 @@ def create(request):
 
 
 def detail(request, assignment_id):
+    user = User.objects.get(username=request.user)
     assignment = get_object_or_404(AssignmentTeacherSide, pk=assignment_id)
+    try:
+        submittedAssignment = studentAssignments.objects.get(studentUser=request.user, assignment=assignment)
+        allowSubmission = False
+    except studentAssignments.DoesNotExist:
+        allowSubmission = True
 
-    return render(request, 'assignments/detail.html', {"assignment": assignment})
+    return render(request, 'assignments/detail.html', {"assignment": assignment, "allowSubmission": allowSubmission})
 
 
 def teacherAssignments(request):

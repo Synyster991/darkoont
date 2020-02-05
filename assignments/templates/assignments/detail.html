@@ -8,7 +8,9 @@
         <table class="table table-hover table-dark">
             <thead>
                 <tr>
-                    <td colspan="5" style="text-align: center;"><h3 class="font-weight-light">{{ assignment.title }}</h3></td>
+                    <td colspan="5" style="text-align: center;">
+                        <h3 class="font-weight-light">{{ assignment.title }}</h3>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="col" style="text-align: left;">Issued by</th>
@@ -30,16 +32,22 @@
     <div class="col-6">
         <div class="card">
             <div class="card-body">
-              <p class="card-text">{{ assignment.instructions }}</p>
-              <a class="text-muted" target="_blank" href="{{ assignment.videoLink }}"><button type="button" class="btn btn-warning">Watch Tutorial</button></a><br>
-              <a class="text-muted" target="_blank" href="{{ assignment.teacherDocument.url }}" download><button type="button" class="mt-1 mb-1 btn btn-danger">Download Assignment</button></a>
-
-              <form method="POST" action="{% url 'submitAssignmentStudent' assignment.id %}" enctype="multipart/form-data">{% csrf_token %}
+                <p class="card-text">{{ assignment.instructions }}</p>
+                <a class="text-muted" target="_blank" href="{{ assignment.videoLink }}"><button type="button"
+                        class="btn btn-warning">Watch Tutorial</button></a><br>
+                <a class="text-muted" target="_blank" href="{{ assignment.teacherDocument.url }}" download><button
+                        type="button" class="mt-1 mb-1 btn btn-danger">Download Assignment</button></a>
+                {% if allowSubmission %}
+                <form method="POST" action="{% url 'submitAssignmentStudent' assignment.id %}"
+                    enctype="multipart/form-data">{% csrf_token %}
                     <input type="file" name="myfile">
                     <button type="submit" class="btn btn-success btn-block mt-4">Submit</button>
-              </form>
+                </form>
+                {% else %}
+                <button type="submit" class="btn btn-success btn-block mt-4" disabled>Submitted <span class="oi oi-check"></span></button>
+                {% endif %}
             </div>
-          </div>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -21,7 +21,11 @@
             <th scope="row">{{ validAssignment.pk }}</th>
             <td><a  class="text-muted" href="{{ validAssignment.document.url }}" download>{{ validAssignment.assignment.title }}</a></td>
             <td>Grade Me</td>
+            {% if validAssignment.points > -1 %}
             <td>{{ validAssignment.points }}/{{ validAssignment.assignment.maxPoint }}</td>
+            {% else %}
+            <td>Not Graded!</td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

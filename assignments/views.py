@@ -70,7 +70,7 @@ def submitAssignmentStudent(request, assignment_id):
 def showGrades(request):
     validAssignments = []
     user = ""
-    
+
     try:
         if request.method == 'POST':
             user = User.objects.get(username=request.POST['studentID'])
@@ -107,7 +107,7 @@ def gradeStudent(request):
             messages.info(request, 'Assignment Graded!')
 
             return redirect('home')
-    except studentAssignments.DoesNotExist:
+    except:
         messages.info(request, 'Assignment is not ready to be graded!')
         return redirect('home')
 

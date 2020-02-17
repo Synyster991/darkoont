@@ -26,7 +26,7 @@ def home(request):
         if user in users_in_group and user not in onDemandGroup:
             return render(request, 'accounts/studentHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers})
         elif user in users_in_group and user in onDemandGroup:
-            return render(request, 'accounts/demandHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers}) 
+            return render(request, 'accounts/demandHome.html', {"assignments":assignments, "numOfActiveUsers": numOfActiveUsers, "user":user}) 
         else:
             return render(request, 'accounts/teacherHome.html', {"validStudents": validStudents, "assignments": assignments, "numOfActiveUsers": numOfActiveUsers})
 

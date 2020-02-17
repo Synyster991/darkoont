@@ -5,6 +5,31 @@
 {% block contect %}
 
 {% if user.is_authenticated %}
-DEMAND SECTION
+<div class="row">
+    <div class="col-12">
+        <p class="h2 font-weight-light text-center">Welcome {{ user.first_name }} {{ user.last_name }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <p class="h3 font-weight-light text-center">On-demand Version</p>
+    </div>
+</div>
+{% for assign in assignments.all %}
+<div class="row row justify-content-center pt-3">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <p class="h5 card-text">{{ assign.title }}</p>
+                <p class="card-text">{{ assign.instructions }}</p>
+                <a class="text-muted" target="_blank" href="{{ assign.videoLink }}"><button type="button"
+                        class="btn btn-warning">Watch Tutorial</button></a><br>
+                <a class="text-muted" target="_blank" href="{{ assign.teacherDocument.url }}" download><button
+                        type="button" class="mt-1 mb-1 btn btn-danger">Download Assignment</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endif %}
 {% endblock %}

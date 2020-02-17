@@ -7,7 +7,7 @@
     </div>
 </div>
 {% if error %}
-    <h5 style="color: red; padding: .5rem 0rem;">{{ error }}</h5>
+<h5 style="color: red; padding: .5rem 0rem;">{{ error }}</h5>
 {% endif %}
 
 <form method="POST" action="{% url 'signup' %}">{% csrf_token %}
@@ -15,9 +15,10 @@
         <div class="col-6 ">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">First Name</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">First Name</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="fname">
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="fname">
             </div>
         </div>
     </div>
@@ -25,9 +26,10 @@
         <div class="col-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">Last Name</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Last Name</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="lname">
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="lname">
             </div>
         </div>
     </div>
@@ -35,9 +37,10 @@
         <div class="col-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="email">
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="email">
             </div>
         </div>
     </div>
@@ -45,9 +48,10 @@
         <div class="col-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="username">
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="username">
             </div>
         </div>
     </div>
@@ -55,9 +59,10 @@
         <div class="col-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
                 </div>
-                <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="password">
+                <input type="password" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="password">
             </div>
         </div>
     </div>
@@ -65,41 +70,59 @@
         <div class="col-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">Re-type Password</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Re-type Password</span>
                 </div>
-                <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="password2">
+                <input type="password" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="password2">
             </div>
         </div>
     </div>
     <div class="row row justify-content-center ">
         <div class="col-6">
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="typeUser" id="exampleRadios1" value="student" checked="checked">
+                <input class="form-check-input" type="radio" name="typeUser" id="exampleRadios2" value="ondemand">
                 <label class="form-check-label">
-                  Student
+                    On-demand Version
                 </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="typeUser" id="exampleRadios2" value="teacher">
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="typeUser" id="exampleRadios1" value="student"
+                    checked="checked">
                 <label class="form-check-label">
-                  Teacher                  
+                    Regular Version
                 </label>
                 <div class="col-6">
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Teacher Code</span>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Pick a Class</span>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01" name="classID">
+                            <option value="PY101">PY101</option>
+                          </select>
                     </div>
-                    <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="token">
                 </div>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="typeUser" id="exampleRadios2" value="teacher">
+                <label class="form-check-label">
+                    Teacher
+                </label>
+                <div class="col-6">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Teacher Code</span>
+                        </div>
+                        <input type="password" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" name="token">
+                    </div>
                 </div>
-
-              </div>
+            </div>
         </div>
     </div>
     <div class="row row justify-content-center pb-3">
         <div class="col-6">
-            <span class="font-weight-light"> • Teacher Code is for teacher use only</span ><br>
-            <span class="font-weight-light"> • Contact Darkoont services to verify your teacher status</span><br>
+            <span class="font-weight-light"> • Teacher Code is for teacher use only</span><br>
+            <span class="font-weight-light"> • Contact Mr. Root services to verify your teacher status</span><br>
             <span class="font-weight-light"> • Use your code as verification</span>
         </div>
     </div>

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block contect %}
+
+{% if user.is_authenticated %}
+DEMAND SECTION
+{% endif %}
+{% endblock %}

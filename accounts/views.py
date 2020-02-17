@@ -13,8 +13,8 @@ def home(request):
         assignments = AssignmentTeacherSide.objects.all()
         validAssignments = []
         presentTime = datetime.now()
-        users = User.objects
         users_in_group = Group.objects.get(name="Student").user_set.all()
+        onDemandGroup = Group.objects.get(name="Ondemand").user_set.all()
         validStudents = users_in_group
 
         for assignment in assignments:
@@ -23,8 +23,10 @@ def home(request):
 
         numOfActiveUsers = len(users_in_group) 
 
-        if user in users_in_group:
-            return render(request, 'accounts/studentHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers}) 
+        if user in users_in_group and user not in onDemandGroup:
+            return render(request, 'accounts/studentHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers})
+        elif user in users_in_group and user in onDemandGroup:
+            return render(request, 'accounts/demandHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers}) 
         else:
             return render(request, 'accounts/teacherHome.html', {"validStudents": validStudents, "assignments": assignments, "numOfActiveUsers": numOfActiveUsers})
 
@@ -61,11 +63,17 @@ def signup(request):
 
                 studentGroup = Group.objects.get(name='Student') 
                 teacherGroup = Group.objects.get(name='Teacher')
+                demandGroup = Group.objects.get(name='Ondemand')
+                py101Class = Group.objects.get(name='PY101')
 
                 if request.POST['typeUser'] == "student":
                     studentGroup.user_set.add(user)
-                else:
+                    py101Class.user_set.add(user)
+                elif request.POST['typeUser'] == "teacher":
                     teacherGroup.user_set.add(user)
+                elif request.POST['typeUser'] == "ondemand":
+                    studentGroup.user_set.add(user)
+                    demandGroup.user_set.add(user)
 
                 return redirect('home')
         else:

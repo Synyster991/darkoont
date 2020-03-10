@@ -15,7 +15,7 @@ def home(request):
         presentTime = datetime.now()
         users_in_group = Group.objects.get(name="Student").user_set.all()
         onDemandGroup = Group.objects.get(name="Ondemand").user_set.all()
-        validStudents = users_in_group
+        submittedAssignments = studentAssignments.objects.all()
 
         for assignment in assignments:
             if assignment.dueDate.strftime('%Y-%m-%d %H:%M:%S') > presentTime.strftime('%Y-%m-%d %H:%M:%S'):
@@ -28,7 +28,7 @@ def home(request):
         elif user in users_in_group and user in onDemandGroup:
             return render(request, 'accounts/demandHome.html', {"assignments":assignments, "numOfActiveUsers": numOfActiveUsers, "user":user}) 
         else:
-            return render(request, 'accounts/teacherHome.html', {"validStudents": validStudents, "assignments": assignments, "numOfActiveUsers": numOfActiveUsers})
+            return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": users_in_group,"assignments": assignments, "numOfActiveUsers": numOfActiveUsers})
 
     except User.DoesNotExist:
          return render(request, 'accounts/studentHome.html')
@@ -90,13 +90,7 @@ def login(request):
         user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
 
         if user is not None:
-            isTeacher = False
             users_in_group = Group.objects.get(name="Student").user_set.all()
-
-            if user in users_in_group:
-                isTeacher = False
-            else:
-                isTeacher = True
 
             auth.login(request, user)
             return redirect('home')

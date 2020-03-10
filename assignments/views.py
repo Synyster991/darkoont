@@ -50,7 +50,7 @@ def teacherAssignments(request):
 
 def submitAssignmentStudent(request, assignment_id):
     tempAssignment = studentAssignments()
-    realAssignment = get_object_or_404(AssignmentTeacherSide, pk=assignment_id) # = assignment =
+    realAssignment = get_object_or_404(AssignmentTeacherSide, pk=assignment_id)
 
     try:
         if request.method == 'POST':

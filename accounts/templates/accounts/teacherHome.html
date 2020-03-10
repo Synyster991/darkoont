@@ -70,22 +70,23 @@
             <thead>
                 <tr>
                     <td colspan="5">
-                        <h3 class="font-weight-light">Students</h3>
+                        <h3 class="font-weight-light">Recent Submissions</h3>
                     </td>
                 </tr>
                 <tr>
                     <th scope="col">Full Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Username</th>
+                    <th scope="col">Assignments (Click to Download)</th>
                 </tr>
             </thead>
             <tbody>
-                {% for validStudent in validStudents.all%}
+                {% for submittedAssignments in submittedAssignments.all%}
+                {% if submittedAssignments.points == -1 %}
                 <tr>
-                    <td>{{ validStudent.first_name }} {{ validStudent.last_name }}</td>
-                    <td>{{ validStudent.email}}</td>
-                    <td>{{ validStudent.username }}</td>
+                    <td>{{ submittedAssignments.studentUser.first_name }} {{ submittedAssignments.studentUser.last_name }}</td>
+                    <td><a class="text-muted" href="{{ submittedAssignments.document.url }}"
+                            download>{{ submittedAssignments.assignment.title }}</a></td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             <tbody>
         </table>

@@ -11,4 +11,5 @@ urlpatterns = [
     path('showGrades/', views.showGrades, name='showGrades'),
     path('gradeStudent/', views.gradeStudent, name='gradeStudent'),
     path('seeMyGrades/', views.seeMyGrades, name='seeMyGrades'),
+    path('seeSubmissions/', views.seeSubmissions, name='seeSubmissions'),
 ]

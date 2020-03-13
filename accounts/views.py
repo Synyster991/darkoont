@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.core.validators import validate_email
 from django.contrib.auth.models import Group
 from assignments.models import AssignmentTeacherSide, studentAssignments
 from datetime import datetime

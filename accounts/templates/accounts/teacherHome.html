@@ -33,10 +33,26 @@
                 </div>
             </div>
         </form>
+
+        <form method="POST" action="{% url 'seeSubmissions' %}">{% csrf_token %}
+            <div class="input-group mt-1">
+                <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
+                    name="assignmentID">
+                    <option selected>Assignment</option>
+                    {% for assignment in assignments.all%}
+                    <option value="{{ assignment.id }}">{{ assignment.title }}</option>
+                    {% endfor %}
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-success" type="submit"> Submissions</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
-<form class="mt-5 p-3 rounded-lg" style="background-color: #343A40;" method="POST" action="{% url 'gradeStudent' %}">{% csrf_token %}
+<form class="mt-5 p-3 rounded-lg" style="background-color: #343A40;" method="POST" action="{% url 'gradeStudent' %}">
+    {% csrf_token %}
     <h3 class="text-center font-weight-light" style="color: #fff;"> Grade Student's Assignment</h3>
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -82,7 +98,8 @@
                 {% for submittedAssignments in submittedAssignments.all%}
                 {% if submittedAssignments.points == -1 %}
                 <tr>
-                    <td>{{ submittedAssignments.studentUser.first_name }} {{ submittedAssignments.studentUser.last_name }}</td>
+                    <td>{{ submittedAssignments.studentUser.first_name }}
+                        {{ submittedAssignments.studentUser.last_name }}</td>
                     <td><a class="text-muted" href="{{ submittedAssignments.document.url }}"
                             download>{{ submittedAssignments.assignment.title }}</a></td>
                 </tr>
@@ -117,7 +134,8 @@
             <li>Graded assignments with feedback</li>
             <li>Free in-person tutoring (when possible)</li>
         </ul>
-        <p>Make sure to register for this version before the starting date or you will be left behind. There are due dates so make sure to stay on track.</p>
+        <p>Make sure to register for this version before the starting date or you will be left behind. There are due
+            dates so make sure to stay on track.</p>
     </div>
     <div class="col-6">
         <p class="h5 text-center font-weight-normal mb-3">Basic Version (Free)</p>
@@ -134,4 +152,3 @@
 {% endif %}
 
 {% endblock %}
-

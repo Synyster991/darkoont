@@ -121,3 +121,14 @@ def seeMyGrades(request):
             gradedAssignments.append(assignment) 
 
     return render(request, 'assignments/seeMyGrades.html', {"gradedAssignments": gradedAssignments, "student":request.user})
+
+
+def seeSubmissions(request):
+    try:
+        if request.method == 'POST':
+            tempAssignment = AssignmentTeacherSide.objects.get(id=request.POST['assignmentID'])
+            submissions = studentAssignments.objects.filter(assignment=tempAssignment)
+
+        return render(request,'assignments/seeSubmissions.html', {"submissions": submissions, "tempAssignment":tempAssignment})
+    except:
+        return redirect('home')

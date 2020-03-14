@@ -7,9 +7,14 @@ from datetime import datetime
 
 def home(request):
     try:
+        assignments = AssignmentTeacherSide.objects.all()
+        studentAvailableAssignments = []
+
+        for group in request.user.groups.all():
+            studentAvailableAssignments.append(group.name)
+
         userName = request.user.get_username()
         user = User.objects.get(username=userName)
-        assignments = AssignmentTeacherSide.objects.all()
         validAssignments = []
         presentTime = datetime.now()
         users_in_group = Group.objects.get(name="Student").user_set.all()
@@ -18,7 +23,8 @@ def home(request):
 
         for assignment in assignments:
             if assignment.dueDate.strftime('%Y-%m-%d %H:%M:%S') > presentTime.strftime('%Y-%m-%d %H:%M:%S'):
-                validAssignments.append(assignment) 
+                if assignment.section in studentAvailableAssignments:
+                    validAssignments.append(assignment) 
 
         numOfActiveUsers = len(users_in_group) 
 

@@ -91,6 +91,7 @@
                 </tr>
                 <tr>
                     <th scope="col">Full Name</th>
+                    <th scope="col">Section</th>
                     <th scope="col">Assignments (Click to Download)</th>
                 </tr>
             </thead>
@@ -100,6 +101,7 @@
                 <tr>
                     <td>{{ submittedAssignments.studentUser.first_name }}
                         {{ submittedAssignments.studentUser.last_name }}</td>
+                        <td>{{ submittedAssignments.assignment.section }}</td>
                     <td><a class="text-muted" href="{{ submittedAssignments.document.url }}"
                             download>{{ submittedAssignments.assignment.title }}</a></td>
                 </tr>

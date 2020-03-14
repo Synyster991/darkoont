@@ -7,7 +7,6 @@ from django.contrib import messages
 
 def create(request):
     availableSection = []
-    teacherGroup = Group.objects.get(name="Teacher").user_set.all()
 
     for group in request.user.groups.all():
         availableSection.append(group.name)

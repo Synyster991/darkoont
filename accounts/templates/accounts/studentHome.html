@@ -37,6 +37,7 @@
                     <th scope="col">Max Points</th>
                     <th scope="col">Due Date</th>
                     <th scope="col">Teacher</th>
+                    <th scope="col">Section</th>
                     <th scope="col">Instructions</th>
                 </tr>
             </thead>
@@ -46,7 +47,8 @@
                     <th scope="row">{{ assignment.title }}</th>
                     <td>{{ assignment.maxPoint}}</td>
                     <td>{{ assignment.dueDate}}</td>
-                    <td>{{ assignment.teacherUser }}</td>
+                    <td>{{ assignment.teacherUser.first_name }} {{ assignment.teacherUser.last_name }}</td>
+                    <td>{{ assignment.section }}</td>
                     <td><a href="{% url 'detail' assignment.id %}"><button type="button" class="btn btn-info">Show
                                 Me</button></a></td>
                 </tr>

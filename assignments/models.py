@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class AssignmentTeacherSide(models.Model):
     title = models.CharField(max_length=50)
+    section = models.CharField(max_length=25)
     instructions = models.TextField()
     maxPoint = models.IntegerField()
     dueDate = models.DateTimeField()

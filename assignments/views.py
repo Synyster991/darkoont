@@ -1,16 +1,26 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import AssignmentTeacherSide, studentAssignments
+from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from .models import studentAssignments
 from django.contrib import messages
 
 def create(request):
+    availableSection = []
+    teacherGroup = Group.objects.get(name="Teacher").user_set.all()
+
+    for group in request.user.groups.all():
+        availableSection.append(group.name)
+
+    availableSection.remove('Teacher')
+
     try:
         if request.method == 'POST':
             if request.POST['title'] and request.POST['date'] and request.POST['instructions']:
                 assignment = AssignmentTeacherSide()
 
                 assignment.title = request.POST['title']
+                assignment.section = request.POST['sectionName']
                 assignment.dueDate = request.POST['date']
                 assignment.instructions = request.POST['instructions']
                 assignment.maxPoint = request.POST['points']
@@ -24,7 +34,7 @@ def create(request):
             else:
                 return render(request, 'assignments/create.html', {"error":"All fields are required!"})
         else:
-            return render(request, 'assignments/create.html')
+            return render(request, 'assignments/create.html', {"availableSection": availableSection})
     except:
         messages.info(request, 'Assignment Not Created!')
         return render(request, 'assignments/create.html')

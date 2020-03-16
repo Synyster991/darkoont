@@ -97,8 +97,10 @@
                             <span class="input-group-text" id="inputGroup-sizing-sm">Pick a Class</span>
                         </div>
                         <select class="custom-select" id="inputGroupSelect01" name="classID">
-                            <option value="PY101">PY101</option>
-                          </select>
+                            {% for sec in allSection %}
+                            <option value="{{ sec }}">{{ sec }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
             </div>

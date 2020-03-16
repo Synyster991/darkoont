@@ -26,3 +26,11 @@ class studentAssignments(models.Model):
         # Title - Last Name First Name (points/maxPoints)
         return "{} - {} {} ({}/{})".format(self.assignment.title, self.studentUser.last_name, self.studentUser.first_name, self.points, self.assignment.maxPoint)
 
+
+class Sections(models.Model):
+    name = models.CharField(max_length=50)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.TextField()
+
+    def  __str__(self):
+        return "{} - {} {}".format(self.name, self.owner.last_name, self.owner.first_name)

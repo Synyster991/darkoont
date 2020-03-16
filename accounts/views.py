@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.models import Group
-from assignments.models import AssignmentTeacherSide, studentAssignments
+from assignments.models import AssignmentTeacherSide, studentAssignments, Sections
+from accounts.models import TeachersTable, StudentsTable
 from datetime import datetime
 
 def home(request):
@@ -24,7 +25,10 @@ def home(request):
         for assignment in assignments:
             if assignment.dueDate.strftime('%Y-%m-%d %H:%M:%S') > presentTime.strftime('%Y-%m-%d %H:%M:%S'):
                 if assignment.section in studentAvailableAssignments:
-                    validAssignments.append(assignment) 
+                    validAssignments.append(assignment)
+
+        for student in users_in_group:
+            pass
 
         numOfActiveUsers = len(users_in_group) 
 
@@ -40,40 +44,59 @@ def home(request):
 
 
 def signup(request):
+    getSection = Sections.objects.filter()
+    allSection = []
+    
+    for sec in getSection:
+        allSection.append(sec.name)
+
+    allSection.remove("Temp")
+
     if request.method == 'POST':
         isPasswordValid = (request.POST['password'] == request.POST['password2']) and (len(request.POST['password']) > 7)
 
         if isPasswordValid:
             try:
                 user = User.objects.get(username=request.POST['username'])
-                return render(request, 'accounts/signup.html', {"error": "This username is taken!"})
+                return render(request, 'accounts/signup.html', {"error": "This username is taken!", "allSection": allSection})
             except User.DoesNotExist:
                 user = User()
                 user.first_name = request.POST['fname']
                 user.last_name = request.POST['lname']
                 user.email = request.POST['email']
                 user.username = request.POST['username']
+                keepUsernName = user.username
+                keepSectionID = request.POST['classID']
                 # user.password = request.POST['password']
                 user.set_password(request.POST['password'])
+                user.save()
 
                 if request.POST['typeUser'] == "teacher":
                     if request.POST['token'] == "1234":
-                        pass
+                        tempTeacher = TeachersTable()
+                        tempSections = Sections.objects.get(name='Temp')
+                        tempTeacherFK = User.objects.get(username=keepUsernName)
+                        tempTeacher.teacherFK = tempTeacherFK
+                        tempTeacher.sectionFK = tempSections
+                        tempTeacher.save()
                     else:
-                        return render(request, 'accounts/signup.html', {"error": "Your token is invalid!"})
+                        return render(request, 'accounts/signup.html', {"error": "Your token is invalid!", "allSection": allSection})
+                elif request.POST['typeUser'] == 'student':
+                    tempStudent = StudentsTable()
+                    tempSection = Sections.objects.get(name=keepSectionID)
+                    tempStudentFK = User.objects.get(username=keepUsernName)
+                    tempStudent.studentFK = tempStudentFK
+                    tempStudent.sectionFK = tempSection
+                    tempStudent.save()
                 else:
                     pass
-
-                user.save()
 
                 studentGroup = Group.objects.get(name='Student') 
                 teacherGroup = Group.objects.get(name='Teacher')
                 demandGroup = Group.objects.get(name='Ondemand')
-                py101Class = Group.objects.get(name='PY101')
 
                 if request.POST['typeUser'] == "student":
                     studentGroup.user_set.add(user)
-                    py101Class.user_set.add(user)
                 elif request.POST['typeUser'] == "teacher":
                     teacherGroup.user_set.add(user)
                 elif request.POST['typeUser'] == "ondemand":
@@ -82,14 +105,13 @@ def signup(request):
 
                 return redirect('home')
         else:
-             return render(request, 'accounts/signup.html', {"error": "Invalid password!"})
+             return render(request, 'accounts/signup.html', {"error": "Invalid password!", "allSection": allSection})
     else:
-        return render(request, 'accounts/signup.html')
+        return render(request, 'accounts/signup.html', {"allSection": allSection})
 
 
 def login(request):
     assignments = AssignmentTeacherSide.objects
-    users_in_group = Group.objects.get(name="Student").user_set.all()
 
     if request.method == 'POST':
         user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])

@@ -27,9 +27,20 @@ def home(request):
                 if assignment.section in studentAvailableAssignments:
                     validAssignments.append(assignment)
 
-        for student in users_in_group:
-            pass
+        # Sync sections between teacher and students
+        tempSections = Sections.objects.filter(owner=user)
+        tempSectionsList = []
+        allStudents = StudentsTable.objects.filter()
+        validStudents = []
+        
+        for sections in tempSections:
+            tempSectionsList.append(sections)
 
+        for student in allStudents:
+            if student.sectionFK in tempSectionsList:
+                validStudents.append(student)
+                print(student.studentFK.last_name)
+        
         numOfActiveUsers = len(users_in_group) 
 
         if user in users_in_group and user not in onDemandGroup:
@@ -37,7 +48,7 @@ def home(request):
         elif user in users_in_group and user in onDemandGroup:
             return render(request, 'accounts/demandHome.html', {"assignments":assignments, "numOfActiveUsers": numOfActiveUsers, "user":user}) 
         else:
-            return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": users_in_group,"assignments": assignments, "numOfActiveUsers": numOfActiveUsers})
+            return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": validStudents,"assignments": assignments, "numOfActiveUsers": numOfActiveUsers})
 
     except User.DoesNotExist:
          return render(request, 'accounts/studentHome.html')

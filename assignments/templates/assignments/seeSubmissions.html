@@ -13,6 +13,7 @@
             <tr>
                 <th scope="col">Full Name</th>
                 <th scope="col">Assignment (Click to Download)</th>
+                <th scope="col">Grade</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
                     <td>{{ submi.studentUser.first_name }} {{ submi.studentUser.last_name }}</td>
                     <td><a class="text-muted" href="{{ submittedAssignments.document.url }}"
                         download>{{ submi.assignment.title }}</a></td>
+                        <td>{{ submi.points }}/{{ submi.assignment.maxPoint }}</td>
                 </tr>
             {% endfor %}
         <tbody>

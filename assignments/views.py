@@ -97,30 +97,30 @@ def showGrades(request):
     
 
 def gradeStudent(request):
-    try:
-        if request.method == 'POST':
-            studentID = User.objects.get(username=request.POST['studentID'])
-            assignmentID = AssignmentTeacherSide.objects.get(pk=request.POST['assignmentID'])
-            tempGrade = request.POST['gradeID']
-            assignment = studentAssignments.objects.get(studentUser=studentID, assignment=assignmentID)
-            assignmentPK = assignment.pk
+    # try:
+    if request.method == 'POST':
+        studentID = User.objects.get(username=request.POST['studentID'])
+        assignmentID = AssignmentTeacherSide.objects.get(pk=request.POST['assignmentID'])
+        tempGrade = request.POST['gradeID']
+        assignment = studentAssignments.objects.get(studentUser=studentID, assignment=assignmentID)
+        assignmentPK = assignment.pk
             
-            gradeThisAssignment = get_object_or_404(studentAssignments, pk=assignmentPK)
-            tempGrade = int(tempGrade)
+        gradeThisAssignment = get_object_or_404(studentAssignments, pk=assignmentPK)
+        tempGrade = int(tempGrade)
 
-            if tempGrade < 0:
-                tempGrade = 0
-            elif tempGrade > gradeThisAssignment.assignment.maxPoint:
-                tempGrade = gradeThisAssignment.assignment.maxPoint
+        if tempGrade < 0:
+            tempGrade = 0
+        elif tempGrade > gradeThisAssignment.assignment.maxPoint:
+            tempGrade = gradeThisAssignment.assignment.maxPoint
             
-            gradeThisAssignment.points = tempGrade
-            gradeThisAssignment.save()
-            messages.info(request, 'Assignment Graded!')
+        gradeThisAssignment.points = tempGrade
+        gradeThisAssignment.save()
+        messages.info(request, 'Assignment Graded!')
 
-            return redirect('home')
-    except:
-        messages.info(request, 'Assignment is not ready to be graded!')
         return redirect('home')
+    # except:
+    #     messages.info(request, 'Assignment is not ready to be graded!')
+    #     return redirect('home')
 
 
 def seeMyGrades(request):

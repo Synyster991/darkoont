@@ -24,7 +24,7 @@
                     name="studentID">
                     <option selected>Student Name</option>
                     {% for validStudent in validStudents%}
-                    <option value="{{ validStudent.username }}">{{ validStudent.studentFK.last_name }}
+                    <option value="{{ validStudent.studentFK.username }}">{{ validStudent.studentFK.last_name }}
                         {{ validStudent.studentFK.first_name }}</option>
                     {% endfor %}
                 </select>
@@ -67,7 +67,7 @@
             <select class="custom-select" id="inputGroupSelect04" name="studentID">
                 <option selected>Student Name</option>
                 {% for validStudent in validStudents%}
-                <option value="{{ validStudent.username }}">{{ validStudent.studentFK.last_name }}
+                <option value="{{ validStudent.studentFK.username }}">{{ validStudent.studentFK.last_name }}
                     {{ validStudent.studentFK.first_name }}</option>
                 {% endfor %}
             </select>

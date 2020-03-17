@@ -34,8 +34,8 @@
             <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
                 name="sectionName">
                 <option selected>Pick a Section</option>
-                {% for g in availableSection %}
-                <option value="{{ g }}">{{ g }}</option>
+                {% for g in availableSection.all %}
+                <option value="{{ g.name }}">{{ g.name }}</option>
                 {% endfor %}
             </select>
         </div>

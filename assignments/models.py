@@ -2,9 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+class Sections(models.Model):
+    name = models.CharField(max_length=50)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.TextField()
+
+    def  __str__(self):
+        return "{} - {} {}".format(self.name, self.owner.last_name, self.owner.first_name)
+
+
 class AssignmentTeacherSide(models.Model):
     title = models.CharField(max_length=50)
-    section = models.CharField(max_length=25)
+    section = models.ForeignKey(Sections, on_delete=models.CASCADE)
     instructions = models.TextField()
     maxPoint = models.IntegerField()
     dueDate = models.DateTimeField()
@@ -27,10 +36,3 @@ class studentAssignments(models.Model):
         return "{} - {} {} ({}/{})".format(self.assignment.title, self.studentUser.last_name, self.studentUser.first_name, self.points, self.assignment.maxPoint)
 
 
-class Sections(models.Model):
-    name = models.CharField(max_length=50)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.TextField()
-
-    def  __str__(self):
-        return "{} - {} {}".format(self.name, self.owner.last_name, self.owner.first_name)

@@ -39,8 +39,8 @@
                 <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
                     name="assignmentID">
                     <option selected>Assignment</option>
-                    {% for assignment in assignments.all%}
-                    <option value="{{ assignment.id }}">{{ assignment.title }}</option>
+                    {% for assignment in assignments %}
+                    <option value="{{ assignment.id }}">{{ assignment.section.name }} - {{ assignment.title }}</option>
                     {% endfor %}
                 </select>
                 <div class="input-group-append">
@@ -58,8 +58,8 @@
         <div class="form-group col-md-6">
             <select class="custom-select" id="inputGroupSelect04" name="assignmentID">
                 <option selected>Assignment</option>
-                {% for assignment in assignments.all%}
-                <option value="{{ assignment.id }}">{{ assignment.title }}</option>
+                {% for assignment in assignments %}
+                <option value="{{ assignment.id }}">{{ assignment.section.name }} - {{ assignment.title }}</option>
                 {% endfor %}
             </select>
         </div>

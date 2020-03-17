@@ -8,14 +8,26 @@ from datetime import datetime
 
 def home(request):
     try:
-        assignments = AssignmentTeacherSide.objects.all()
+        # Sync sections between teacher and students
+        userName = request.user.get_username()
+        user = User.objects.get(username=userName)
+        tempSections = Sections.objects.filter(owner=user)
+        tempSectionsList = []
+        validStudents = []
         studentAvailableAssignments = []
+        teacherAssignments = []
+        allStudents = StudentsTable.objects.filter()
+        assignments = AssignmentTeacherSide.objects.all()
+
 
         for group in request.user.groups.all():
             studentAvailableAssignments.append(group.name)
 
-        userName = request.user.get_username()
-        user = User.objects.get(username=userName)
+        for assign in assignments:
+            if assign.section in tempSections:
+                teacherAssignments.append(assign)
+
+
         validAssignments = []
         presentTime = datetime.now()
         users_in_group = Group.objects.get(name="Student").user_set.all()
@@ -26,13 +38,7 @@ def home(request):
             if assignment.dueDate.strftime('%Y-%m-%d %H:%M:%S') > presentTime.strftime('%Y-%m-%d %H:%M:%S'):
                 if assignment.section in studentAvailableAssignments:
                     validAssignments.append(assignment)
-
-        # Sync sections between teacher and students
-        tempSections = Sections.objects.filter(owner=user)
-        tempSectionsList = []
-        allStudents = StudentsTable.objects.filter()
-        validStudents = []
-        
+      
         for sections in tempSections:
             tempSectionsList.append(sections)
 
@@ -48,7 +54,7 @@ def home(request):
         elif user in users_in_group and user in onDemandGroup:
             return render(request, 'accounts/demandHome.html', {"assignments":assignments, "numOfActiveUsers": numOfActiveUsers, "user":user}) 
         else:
-            return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": validStudents,"assignments": assignments, "numOfActiveUsers": numOfActiveUsers})
+            return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": validStudents,"assignments": teacherAssignments, "numOfActiveUsers": numOfActiveUsers})
 
     except User.DoesNotExist:
          return render(request, 'accounts/studentHome.html')

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import AssignmentTeacherSide, studentAssignments
+from .models import AssignmentTeacherSide, studentAssignments, Sections
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from .models import studentAssignments
@@ -8,18 +8,18 @@ from django.contrib import messages
 def create(request):
     availableSection = []
 
-    for group in request.user.groups.all():
-        availableSection.append(group.name)
-
-    availableSection.remove('Teacher')
+    userName = request.user.get_username()
+    user = User.objects.get(username=userName)
+    availableSection = Sections.objects.filter(owner=user)
 
     try:
         if request.method == 'POST':
             if request.POST['title'] and request.POST['date'] and request.POST['instructions']:
                 assignment = AssignmentTeacherSide()
+                tempSection = Sections.objects.get(name=request.POST['sectionName'])
 
                 assignment.title = request.POST['title']
-                assignment.section = request.POST['sectionName']
+                assignment.section = tempSection
                 assignment.dueDate = request.POST['date']
                 assignment.instructions = request.POST['instructions']
                 assignment.maxPoint = request.POST['points']
@@ -31,12 +31,12 @@ def create(request):
                 messages.info(request, 'Assignment Created!')
                 return redirect('home')
             else:
-                return render(request, 'assignments/create.html', {"error":"All fields are required!"})
+                return render(request, 'assignments/create.html', {"error":"All fields are required!", "availableSection": availableSection})
         else:
             return render(request, 'assignments/create.html', {"availableSection": availableSection})
     except:
         messages.info(request, 'Assignment Not Created!')
-        return render(request, 'assignments/create.html')
+        return render(request, 'assignments/create.html', {"availableSection": availableSection})
 
 
 def detail(request, assignment_id):

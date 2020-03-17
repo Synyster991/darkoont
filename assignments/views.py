@@ -52,7 +52,9 @@ def detail(request, assignment_id):
 
 
 def teacherAssignments(request):
-    assignments = AssignmentTeacherSide.objects
+    user = User.objects.get(username=request.user)
+    tempSection = Sections.objects.get(owner=user)
+    assignments = AssignmentTeacherSide.objects.filter(section=tempSection)
 
     return render(request, 'assignments/teacherAssignments.html', {"assignments": assignments})
 

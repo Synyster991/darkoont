@@ -96,7 +96,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for submittedAssignments in submittedAssignments.all%}
+                {% for submittedAssignments in submittedAssignments %}
                 {% if submittedAssignments.points == -1 %}
                 <tr>
                     <td>{{ submittedAssignments.studentUser.first_name }}

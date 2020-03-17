@@ -12,6 +12,7 @@ def home(request):
         userName = request.user.get_username()
         user = User.objects.get(username=userName)
         tempSections = Sections.objects.filter(owner=user)
+        studentSections = StudentsTable.objects.filter(studentFK=user)
         tempSectionsList = []
         validStudents = []
         studentAvailableAssignments = []
@@ -32,12 +33,15 @@ def home(request):
         presentTime = datetime.now()
         users_in_group = Group.objects.get(name="Student").user_set.all()
         onDemandGroup = Group.objects.get(name="Ondemand").user_set.all()
-        submittedAssignments = studentAssignments.objects.all()
+        allSubmittedAssignments = studentAssignments.objects.filter()
+        submittedAssignments = []
+
 
         for assignment in assignments:
-            if assignment.dueDate.strftime('%Y-%m-%d %H:%M:%S') > presentTime.strftime('%Y-%m-%d %H:%M:%S'):
-                if assignment.section in studentAvailableAssignments:
-                    validAssignments.append(assignment)
+            for section in studentSections:
+                if assignment.dueDate.strftime('%Y-%m-%d %H:%M:%S') > presentTime.strftime('%Y-%m-%d %H:%M:%S'):
+                    if assignment.section.name == section.sectionFK.name:
+                        validAssignments.append(assignment)
       
         for sections in tempSections:
             tempSectionsList.append(sections)
@@ -45,14 +49,18 @@ def home(request):
         for student in allStudents:
             if student.sectionFK in tempSectionsList:
                 validStudents.append(student)
-                print(student.studentFK.last_name)
+
+        for submittedAssignment in allSubmittedAssignments:
+            for tempSection in tempSections:
+                if submittedAssignment.assignment.section.name == tempSection.name:
+                    submittedAssignments.append(submittedAssignment)
         
         numOfActiveUsers = len(users_in_group) 
 
         if user in users_in_group and user not in onDemandGroup:
             return render(request, 'accounts/studentHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers})
         elif user in users_in_group and user in onDemandGroup:
-            return render(request, 'accounts/demandHome.html', {"assignments":assignments, "numOfActiveUsers": numOfActiveUsers, "user":user}) 
+            return render(request, 'accounts/demandHome.html', {"assignments":teacherAssignments, "numOfActiveUsers": numOfActiveUsers, "user":user}) 
         else:
             return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": validStudents,"assignments": teacherAssignments, "numOfActiveUsers": numOfActiveUsers})
 

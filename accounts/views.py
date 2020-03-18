@@ -60,7 +60,7 @@ def home(request):
         if user in users_in_group and user not in onDemandGroup:
             return render(request, 'accounts/studentHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers})
         elif user in users_in_group and user in onDemandGroup:
-            return render(request, 'accounts/demandHome.html', {"assignments":teacherAssignments, "numOfActiveUsers": numOfActiveUsers, "user":user}) 
+            return render(request, 'accounts/demandHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers, "user":user}) 
         else:
             return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": validStudents,"assignments": teacherAssignments, "numOfActiveUsers": numOfActiveUsers})
 
@@ -73,9 +73,8 @@ def signup(request):
     allSection = []
     
     for sec in getSection:
-        allSection.append(sec.name)
-
-    allSection.remove("Temp")
+        if sec.public:
+            allSection.append(sec.name)
 
     if request.method == 'POST':
         isPasswordValid = (request.POST['password'] == request.POST['password2']) and (len(request.POST['password']) > 7)
@@ -99,7 +98,7 @@ def signup(request):
                 if request.POST['typeUser'] == "teacher":
                     if request.POST['token'] == "1234":
                         tempTeacher = TeachersTable()
-                        tempSections = Sections.objects.get(name='Temp')
+                        tempSections = Sections.objects.get(name='GoingPrivate')
                         tempTeacherFK = User.objects.get(username=keepUsernName)
                         tempTeacher.teacherFK = tempTeacherFK
                         tempTeacher.sectionFK = tempSections

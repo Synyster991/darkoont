@@ -40,10 +40,8 @@ def create(request):
 
 
 def detail(request, assignment_id):
-    user = User.objects.get(username=request.user)
     assignment = get_object_or_404(AssignmentTeacherSide, pk=assignment_id)
     try:
-        submittedAssignment = studentAssignments.objects.get(studentUser=request.user, assignment=assignment)
         allowSubmission = False
     except studentAssignments.DoesNotExist:
         allowSubmission = True
@@ -52,12 +50,14 @@ def detail(request, assignment_id):
 
 
 def teacherAssignments(request):
-    user = User.objects.get(username=request.user)
-    tempSection = Sections.objects.get(owner=user)
-    assignments = AssignmentTeacherSide.objects.filter(section=tempSection)
-
-    return render(request, 'assignments/teacherAssignments.html', {"assignments": assignments})
-
+    try:
+        user = User.objects.get(username=request.user)
+        tempSection = Sections.objects.get(owner=user)
+        assignments = AssignmentTeacherSide.objects.filter(section=tempSection)
+        return render(request, 'assignments/teacherAssignments.html', {"assignments": assignments})
+    except:
+        return render(request, 'assignments/teacherAssignments.html')
+    
 
 def submitAssignmentStudent(request, assignment_id):
     tempAssignment = studentAssignments()

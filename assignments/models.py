@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Sections(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    public = models.BooleanField()
     description = models.TextField()
 
     def  __str__(self):

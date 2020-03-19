@@ -8,67 +8,66 @@ from datetime import datetime
 
 def home(request):
     try:
-        # Sync sections between teacher and students
+        # Retriving data from database
         userName = request.user.get_username()
         user = User.objects.get(username=userName)
         tempSections = Sections.objects.filter(owner=user)
         studentSections = StudentsTable.objects.filter(studentFK=user)
-        tempSectionsList = []
-        validStudents = []
-        studentAvailableAssignments = []
-        teacherAssignments = []
         allStudents = StudentsTable.objects.filter()
         assignments = AssignmentTeacherSide.objects.all()
+        allSubmittedAssignments = studentAssignments.objects.filter()
 
+        # Empty lists to insert validated data
+        validStudents = []
+        validAssignments = []
+        tempSectionsList = []
+        teacherAssignments = []
+        submittedAssignments = []      
+        
+        # Get only student users
+        users_in_group = Group.objects.get(name="Student").user_set.all()
 
-        for group in request.user.groups.all():
-            studentAvailableAssignments.append(group.name)
-
+        presentTime = datetime.now()
+        
+        # Making sure that teacher will se only their assignments
         for assign in assignments:
             if assign.section in tempSections:
                 teacherAssignments.append(assign)
 
-
-        validAssignments = []
-        presentTime = datetime.now()
-        users_in_group = Group.objects.get(name="Student").user_set.all()
-        onDemandGroup = Group.objects.get(name="Ondemand").user_set.all()
-        allSubmittedAssignments = studentAssignments.objects.filter()
-        submittedAssignments = []
-
-
+        # Checking the right section and due date for student's assignments
         for assignment in assignments:
             for section in studentSections:
                 if assignment.dueDate.strftime('%Y-%m-%d %H:%M:%S') > presentTime.strftime('%Y-%m-%d %H:%M:%S'):
                     if assignment.section.name == section.sectionFK.name:
                         validAssignments.append(assignment)
       
+        # Converting Query to List of sections name
         for sections in tempSections:
             tempSectionsList.append(sections)
 
+        # Making sure teachers will see their students
         for student in allStudents:
             if student.sectionFK in tempSectionsList:
                 validStudents.append(student)
 
+        # See Recent submission, but only for their students
         for submittedAssignment in allSubmittedAssignments:
             for tempSection in tempSections:
                 if submittedAssignment.assignment.section.name == tempSection.name:
                     submittedAssignments.append(submittedAssignment)
         
-        numOfActiveUsers = len(users_in_group) 
-
-        if user in users_in_group and user not in onDemandGroup:
-            return render(request, 'accounts/studentHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers})
-        elif user in users_in_group and user in onDemandGroup:
-            return render(request, 'accounts/demandHome.html', {"assignments":validAssignments, "numOfActiveUsers": numOfActiveUsers, "user":user}) 
+        # Checking if the logged in user is student or teacher
+        if user in users_in_group:
+            return render(request, 'accounts/studentHome.html', {"assignments":validAssignments})
         else:
-            return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": validStudents,"assignments": teacherAssignments, "numOfActiveUsers": numOfActiveUsers})
+            return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": validStudents, "assignments": teacherAssignments})
 
     except User.DoesNotExist:
          return render(request, 'accounts/studentHome.html')
 
 
 def signup(request):
+    # Creating list of Section's name from query
     getSection = Sections.objects.filter()
     allSection = []
     
@@ -76,6 +75,7 @@ def signup(request):
         if sec.public:
             allSection.append(sec.name)
 
+    # Creating new user
     if request.method == 'POST':
         isPasswordValid = (request.POST['password'] == request.POST['password2']) and (len(request.POST['password']) > 7)
 
@@ -96,7 +96,7 @@ def signup(request):
                 user.save()
 
                 if request.POST['typeUser'] == "teacher":
-                    if request.POST['token'] == "1234":
+                    if request.POST['token'] == "1234": # TODO - change it with local_settings.py
                         tempTeacher = TeachersTable()
                         tempSections = Sections.objects.get(name='GoingPrivate')
                         tempTeacherFK = User.objects.get(username=keepUsernName)
@@ -115,18 +115,15 @@ def signup(request):
                 else:
                     pass
 
+                # Seperating students and teachers
                 studentGroup = Group.objects.get(name='Student') 
                 teacherGroup = Group.objects.get(name='Teacher')
-                demandGroup = Group.objects.get(name='Ondemand')
 
                 if request.POST['typeUser'] == "student":
                     studentGroup.user_set.add(user)
                 elif request.POST['typeUser'] == "teacher":
                     teacherGroup.user_set.add(user)
-                elif request.POST['typeUser'] == "ondemand":
-                    studentGroup.user_set.add(user)
-                    demandGroup.user_set.add(user)
-
+ 
                 return redirect('home')
         else:
              return render(request, 'accounts/signup.html', {"error": "Invalid password!", "allSection": allSection})
@@ -135,14 +132,10 @@ def signup(request):
 
 
 def login(request):
-    assignments = AssignmentTeacherSide.objects
-
     if request.method == 'POST':
         user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
 
         if user is not None:
-            users_in_group = Group.objects.get(name="Student").user_set.all()
-
             auth.login(request, user)
             return redirect('home')
         else:

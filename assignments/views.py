@@ -4,8 +4,12 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from .models import studentAssignments
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test, login_required
 
+@login_required(login_url="/accounts/signup")
+@user_passes_test(lambda u: u.groups.filter(name='Teacher').exists())
 def create(request):
+    # Creating assignment from the teacher side
     availableSection = []
 
     userName = request.user.get_username()
@@ -39,9 +43,14 @@ def create(request):
         return render(request, 'assignments/create.html', {"availableSection": availableSection})
 
 
+@login_required(login_url="/accounts/signup")
 def detail(request, assignment_id):
+    # Students can see details about the assignments and limiting submission to one time
+    user = User.objects.get(username=request.user)
     assignment = get_object_or_404(AssignmentTeacherSide, pk=assignment_id)
+    
     try:
+        submittedAssignment = studentAssignments.objects.get(studentUser=request.user, assignment=assignment)
         allowSubmission = False
     except studentAssignments.DoesNotExist:
         allowSubmission = True
@@ -49,7 +58,10 @@ def detail(request, assignment_id):
     return render(request, 'assignments/detail.html', {"assignment": assignment, "allowSubmission": allowSubmission})
 
 
+@login_required(login_url="/accounts/signup")
+@user_passes_test(lambda u: u.groups.filter(name='Teacher').exists())
 def teacherAssignments(request):
+    # Teacher can see their own created assignments
     try:
         user = User.objects.get(username=request.user)
         tempSection = Sections.objects.get(owner=user)
@@ -59,7 +71,9 @@ def teacherAssignments(request):
         return render(request, 'assignments/teacherAssignments.html')
     
 
+@login_required(login_url="/accounts/signup")
 def submitAssignmentStudent(request, assignment_id):
+    # Allowing students to submit their assignment
     tempAssignment = studentAssignments()
     realAssignment = get_object_or_404(AssignmentTeacherSide, pk=assignment_id)
 
@@ -78,7 +92,9 @@ def submitAssignmentStudent(request, assignment_id):
     return redirect('home')
 
 
+@login_required(login_url="/accounts/signup")
 def showGrades(request):
+    # Teacher can see assignments, grades, submission and download assignments.
     validAssignments = []
     user = ""
 
@@ -94,36 +110,41 @@ def showGrades(request):
         pass
 
     return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments, "studentInfo": user})
-    
 
+
+@login_required(login_url="/accounts/signup")    
+@user_passes_test(lambda u: u.groups.filter(name='Teacher').exists())
 def gradeStudent(request):
-    # try:
-    if request.method == 'POST':
-        studentID = User.objects.get(username=request.POST['studentID'])
-        assignmentID = AssignmentTeacherSide.objects.get(pk=request.POST['assignmentID'])
-        tempGrade = request.POST['gradeID']
-        assignment = studentAssignments.objects.get(studentUser=studentID, assignment=assignmentID)
-        assignmentPK = assignment.pk
-            
-        gradeThisAssignment = get_object_or_404(studentAssignments, pk=assignmentPK)
-        tempGrade = int(tempGrade)
+    # Grade student functionallity
+    try:
+        if request.method == 'POST':
+            studentID = User.objects.get(username=request.POST['studentID'])
+            assignmentID = AssignmentTeacherSide.objects.get(pk=request.POST['assignmentID'])
+            tempGrade = request.POST['gradeID']
+            assignment = studentAssignments.objects.get(studentUser=studentID, assignment=assignmentID)
+            assignmentPK = assignment.pk
+                
+            gradeThisAssignment = get_object_or_404(studentAssignments, pk=assignmentPK)
+            tempGrade = int(tempGrade)
 
-        if tempGrade < 0:
-            tempGrade = 0
-        elif tempGrade > gradeThisAssignment.assignment.maxPoint:
-            tempGrade = gradeThisAssignment.assignment.maxPoint
-            
-        gradeThisAssignment.points = tempGrade
-        gradeThisAssignment.save()
-        messages.info(request, 'Assignment Graded!')
+            if tempGrade < 0:
+                tempGrade = 0
+            elif tempGrade > gradeThisAssignment.assignment.maxPoint:
+                tempGrade = gradeThisAssignment.assignment.maxPoint
+                
+            gradeThisAssignment.points = tempGrade
+            gradeThisAssignment.save()
+            messages.info(request, 'Assignment Graded!')
 
+            return redirect('home')
+    except:
+        messages.info(request, 'Assignment is not ready to be graded!')
         return redirect('home')
-    # except:
-    #     messages.info(request, 'Assignment is not ready to be graded!')
-    #     return redirect('home')
 
 
+@login_required(login_url="/accounts/signup")    
 def seeMyGrades(request):
+    # Students can see their own grades
     assignments = studentAssignments.objects.all()
     gradedAssignments = []
 
@@ -134,7 +155,10 @@ def seeMyGrades(request):
     return render(request, 'assignments/seeMyGrades.html', {"gradedAssignments": gradedAssignments, "student":request.user})
 
 
+@login_required(login_url="/accounts/signup")    
+@user_passes_test(lambda u: u.groups.filter(name='Teacher').exists())
 def seeSubmissions(request):
+    # Teachers can see submission for unique assignments
     try:
         if request.method == 'POST':
             tempAssignment = AssignmentTeacherSide.objects.get(id=request.POST['assignmentID'])

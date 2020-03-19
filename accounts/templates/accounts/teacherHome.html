@@ -120,7 +120,7 @@
             The Primary goal of Mr. Root is to help students and teachers to stay connected. <br>There are two ways for using Mr. Root Services:
             <ol>
                 <li>Option - <a target="_blank" href="https://github.com/Synyster991/darkoont">Download this code</a> and use it on your own server with your own domain name. However, you need to keep the footer as a reference. </li>
-                <li>Option - Use our server and out domain name. Follow the instrustions below.</li>
+                <li>Option - Use our server and our domain name. Follow the instrustions below.</li>
             </ol>            
         </p>
     </div>
@@ -147,8 +147,11 @@
             <li>Create assignment droplets</li>
             <li>Grade assignments</li>
         </ul>
-        <p>Email this form to filipdimi1999@gmail.com to get your section and Teacher Code for registration.</p>
+        <p>Email <a href="{% static 'mrrootform.docx' %}"
+            download>{{ submi.assignment.title }}<span class="font-weight-bold">this form</span></a> to filipdimi1999@gmail.com to get your section and "Teacher Code" for registration.
+        </p>
     </div>
+</div>
 </div>
 <hr>
 {% endif %}

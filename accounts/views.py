@@ -60,7 +60,7 @@ def home(request):
         if user in users_in_group:
             return render(request, 'accounts/studentHome.html', {"assignments":validAssignments})
         else:
-            return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": validStudents, "assignments": teacherAssignments})
+            return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": validStudents, "assignments": teacherAssignments, "sections": tempSections})
 
     except User.DoesNotExist:
          return render(request, 'accounts/studentHome.html')

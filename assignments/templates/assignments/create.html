@@ -35,7 +35,9 @@
                 name="sectionName">
                 <option selected>Pick a Section</option>
                 {% for g in availableSection.all %}
+                {% if g.name != "GoingPrivate" %}
                 <option value="{{ g.name }}">{{ g.name }}</option>
+                {% endif %}
                 {% endfor %}
             </select>
         </div>

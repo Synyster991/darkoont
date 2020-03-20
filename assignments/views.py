@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import AssignmentTeacherSide, studentAssignments, Sections
+from .models import AssignmentTeacherSide, studentAssignments, Sections, studentAssignments
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
-from .models import studentAssignments
+from accounts.models import StudentsTable
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test, login_required
 
@@ -167,3 +167,24 @@ def seeSubmissions(request):
         return render(request,'assignments/seeSubmissions.html', {"submissions": submissions, "tempAssignment":tempAssignment})
     except:
         return redirect('home')
+
+
+def seeSectionStudents(request):
+    # See Section's students
+    try:
+        if request.method == 'POST':
+            # Prevent from unnecesery error
+            if request.POST['sectionID'] == "empty":
+                return redirect('home')
+
+            sectionID = request.POST['sectionID']
+            checkedStudents = []
+            allStudents = StudentsTable.objects.filter()
+
+            for student in allStudents:
+                if student.sectionFK.name == sectionID:
+                    checkedStudents.append(student) 
+
+        return render(request, 'assignments/seeSectionStudents.html', {"checkedStudents": checkedStudents, "sectionID": sectionID})
+    except:
+        pass

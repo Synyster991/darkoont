@@ -48,6 +48,23 @@
                 </div>
             </div>
         </form>
+
+        <form method="POST" action="{% url 'seeSectionStudents' %}">{% csrf_token %}
+            <div class="input-group mt-1">
+                <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
+                    name="sectionID">
+                    <option value="empty" selected>Section</option>
+                    {% for section in sections %}
+                    {%if section.name != "GoingPrivate" %}
+                    <option value="{{ section.name }}">{{ section.name }} </option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-success" type="submit"> Students</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -101,7 +118,7 @@
                 <tr>
                     <td>{{ submittedAssignments.studentUser.first_name }}
                         {{ submittedAssignments.studentUser.last_name }}</td>
-                        <td>{{ submittedAssignments.assignment.section }}</td>
+                    <td>{{ submittedAssignments.assignment.section }}</td>
                     <td><a class="text-muted" href="{{ submittedAssignments.document.url }}"
                             download>{{ submittedAssignments.assignment.title }}</a></td>
                 </tr>
@@ -117,11 +134,14 @@
     <div class="col-12">
         <p class="text-justify">
             <span class="font-weight-bold">Mr. Root</span> is open-source learning management system.
-            The Primary goal of Mr. Root is to help students and teachers to stay connected. <br>There are two ways for using Mr. Root Services:
+            The Primary goal of Mr. Root is to help students and teachers to stay connected. <br>There are two ways for
+            using Mr. Root Services:
             <ol>
-                <li>Option - <a target="_blank" href="https://github.com/Synyster991/darkoont">Download this code</a> and use it on your own server with your own domain name. However, you need to keep the footer as a reference. </li>
+                <li>Option - <a target="_blank" href="https://github.com/Synyster991/darkoont">Download this code</a>
+                    and use it on your own server with your own domain name. However, you need to keep the footer as a
+                    reference. </li>
                 <li>Option - Use our server and our domain name. Follow the instrustions below.</li>
-            </ol>            
+            </ol>
         </p>
     </div>
 </div>
@@ -147,8 +167,9 @@
             <li>Create assignment droplets</li>
             <li>Grade assignments</li>
         </ul>
-        <p>Email <a href="{% static 'mrrootform.docx' %}"
-            download>{{ submi.assignment.title }}<span class="font-weight-bold">this form</span></a> to filipdimi1999@gmail.com to get your section and "Teacher Code" for registration.
+        <p>Email <a href="{% static 'mrrootform.docx' %}" download>{{ submi.assignment.title }}<span
+                    class="font-weight-bold">this form</span></a> to filipdimi1999@gmail.com to get your section and
+            "Teacher Code" for registration.
         </p>
     </div>
 </div>

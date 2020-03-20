@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block contect %}
+<div class="row pt-5">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <td colspan="5" style="text-align: center;">
+                    <h3 class="font-weight-light">Section: {{ sectionID }}</h3>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Full Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in checkedStudents %}
+            <tr>
+                <td>{{student.studentFK.last_name}} {{ student.studentFK.first_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

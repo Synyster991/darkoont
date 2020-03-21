@@ -100,6 +100,9 @@ def showGrades(request):
 
     try:
         if request.method == 'POST':
+            totalScore = 0
+            averageScore = 0.0
+            counterForGradedAssignments = 0
             user = User.objects.get(username=request.POST['studentIDforGrade'])
             sectionName = request.POST['sectionIDforGrade']
             assignments = studentAssignments.objects
@@ -107,10 +110,18 @@ def showGrades(request):
             for assignment in assignments.all():
                 if assignment.studentUser == user and assignment.assignment.section.name == sectionName:
                     validAssignments.append(assignment)
-    except:
-        pass
+                    if assignment.points != -1:
+                        counterForGradedAssignments += 1
+                        totalScore += assignment.points
 
-    return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments, "studentInfo": user})
+            try:
+                averageScore = "{0:.2f}".format(totalScore / counterForGradedAssignments)
+            except ZeroDivisionError:
+                averageScore = "{0:.2f}".format(totalScore / 1)
+    except:
+        messages.info(request, 'Student is not part of that section!')
+
+    return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments, "studentInfo": user, "averageScore": averageScore, "sectionName": sectionName})
 
 
 @login_required(login_url="/accounts/signup")    

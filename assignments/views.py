@@ -100,11 +100,12 @@ def showGrades(request):
 
     try:
         if request.method == 'POST':
-            user = User.objects.get(username=request.POST['studentID'])
+            user = User.objects.get(username=request.POST['studentIDforGrade'])
+            sectionName = request.POST['sectionIDforGrade']
             assignments = studentAssignments.objects
 
             for assignment in assignments.all():
-                if assignment.studentUser == user:
+                if assignment.studentUser == user and assignment.assignment.section.name == sectionName:
                     validAssignments.append(assignment)
     except:
         pass
@@ -191,28 +192,32 @@ def seeSectionStudents(request):
 
 
 def seeGradesPerSection(request):
-    if request.method == 'POST':
-        # Prevent from unnecesery error
-        if request.POST['sectionID'] == "empty":
-            return redirect('home')
+    # Allows students to see grades for each section and calculate their average score
+    try:
+        if request.method == 'POST':
+            # Prevent from unnecesery error
+            if request.POST['sectionID'] == "empty":
+                return redirect('home')
 
-        checkedSubmissions = []
-        totalScore = 0
-        averageScore = 0.0
-        counterForGradedAssignments = 0
-        sectionID = request.POST['sectionID']
-        submittedAssignments = studentAssignments.objects.filter(studentUser=request.user)
+            checkedSubmissions = []
+            totalScore = 0
+            averageScore = 0.0
+            counterForGradedAssignments = 0
+            sectionID = request.POST['sectionID']
+            submittedAssignments = studentAssignments.objects.filter(studentUser=request.user)
 
-        for assignment in submittedAssignments:
-            if assignment.assignment.section.name == sectionID:
-                checkedSubmissions.append(assignment)
-                if assignment.points != -1:
-                    counterForGradedAssignments += 1
-                    totalScore += assignment.points
+            for assignment in submittedAssignments:
+                if assignment.assignment.section.name == sectionID:
+                    checkedSubmissions.append(assignment)
+                    if assignment.points != -1:
+                        counterForGradedAssignments += 1
+                        totalScore += assignment.points
 
-        try:
-            averageScore = "{0:.2f}".format(totalScore / counterForGradedAssignments)
-        except ZeroDivisionError:
-            averageScore = "{0:.2f}".format(totalScore / 1)
+            try:
+                averageScore = "{0:.2f}".format(totalScore / counterForGradedAssignments)
+            except ZeroDivisionError:
+                averageScore = "{0:.2f}".format(totalScore / 1)
 
-    return render(request, 'assignments/seeGradesPerSection.html', {"sectionID": sectionID, "checkedSubmissions": checkedSubmissions, "averageScore": averageScore})
+            return render(request, 'assignments/seeGradesPerSection.html', {"sectionID": sectionID, "checkedSubmissions": checkedSubmissions, "averageScore": averageScore})
+    except:
+        pass

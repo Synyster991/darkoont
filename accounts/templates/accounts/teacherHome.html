@@ -18,22 +18,6 @@
                 Create Assignment</button></span></a><br>
         <a href="{% url 'teacherAssignments' %}"><button type="button" class="btn btn-success mt-1"><span
                     class="oi oi-book"></span> See Assignments</button></span> </a>
-        <form method="POST" action="{% url 'showGrades' %}">{% csrf_token %}
-            <div class="input-group mt-1">
-                <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
-                    name="studentID">
-                    <option selected>Student Name</option>
-                    {% for validStudent in validStudents%}
-                    <option value="{{ validStudent.studentFK.username }}">{{ validStudent.studentFK.last_name }}
-                        {{ validStudent.studentFK.first_name }}</option>
-                    {% endfor %}
-                </select>
-                <div class="input-group-append">
-                    <button class="btn btn-success" type="submit"><span class="oi oi-pie-chart"></span> Grades</button>
-                </div>
-            </div>
-        </form>
-
         <form method="POST" action="{% url 'seeSubmissions' %}">{% csrf_token %}
             <div class="input-group mt-1">
                 <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
@@ -67,7 +51,34 @@
         </form>
     </div>
 </div>
-
+<form class="mt-5 p-3 rounded-lg" style="background-color: rgb(111, 114, 117);" method="POST" action="{% url 'showGrades' %}">
+    {% csrf_token %}
+    <h3 class="text-center font-weight-light" style="color: #fff;"> See Student's Grades</h3>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="sectionIDforGrade">
+            <option value="empty" selected>Section</option>
+            {% for section in sections %}
+            {%if section.name != "GoingPrivate" %}
+            <option value="{{ section.name }}">{{ section.name }} </option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        </div>
+        <div class="form-group col-md-4">
+            <select class="custom-select" id="inputGroupSelect04" name="studentIDforGrade">
+                <option selected>Student Name</option>
+                {% for validStudent in validStudents%}
+                <option value="{{ validStudent.studentFK.username }}">{{ validStudent.studentFK.last_name }}
+                    {{ validStudent.studentFK.first_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <button class="btn btn-success btn-block" type="submit"><span class="oi oi-pie-chart"></span> Grades</button>
+        </div>
+    </div>
+</form>
 <form class="mt-5 p-3 rounded-lg" style="background-color: #343A40;" method="POST" action="{% url 'gradeStudent' %}">
     {% csrf_token %}
     <h3 class="text-center font-weight-light" style="color: #fff;"> Grade Student's Assignment</h3>

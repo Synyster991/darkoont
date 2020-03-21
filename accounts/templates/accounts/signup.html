@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% load i18n %}
 {% block contect %}
 <div class="row justify-content-center pb-3">
     <div class="col-6 ">
-        <h2 class="display-4 pt-4 ">Sign Up</h2>
+        <h2 class="display-4 pt-4 ">{% trans "Sign Up" %}</h2>
     </div>
 </div>
 {% if error %}
@@ -15,7 +16,7 @@
         <div class="form-group col-md-6 mx-auto">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">First Name</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">{% trans "First Name" %}</span>
                 </div>
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" name="fname">
@@ -26,7 +27,7 @@
         <div class="form-group col-md-6 mx-auto">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Last Name</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">{% trans "Last Name" %}</span>
                 </div>
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" name="lname">
@@ -37,7 +38,7 @@
         <div class="form-group col-md-6 mx-auto">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">{% trans "Email" %}</span>
                 </div>
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" name="email">
@@ -48,7 +49,7 @@
         <div class="form-group col-md-6 mx-auto">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">{% trans "Username" %}</span>
                 </div>
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" name="username">
@@ -59,7 +60,7 @@
         <div class="form-group col-md-6 mx-auto">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">{% trans "Password" %}</span>
                 </div>
                 <input type="password" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" name="password">
@@ -70,7 +71,7 @@
         <div class="form-group col-md-6 mx-auto">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Re-type Password</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">{% trans "Re-type Password" %}</span>
                 </div>
                 <input type="password" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" name="password2">
@@ -83,12 +84,12 @@
                 <input class="form-check-input" type="radio" name="typeUser" id="exampleRadios1" value="student"
                     checked="checked">
                 <label class="form-check-label">
-                    Student Version
+                    {% trans "Student Version" %}
                 </label>
                 <div class="col-6">
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">Pick a Class</span>
+                            <span class="input-group-text" id="inputGroup-sizing-sm">{% trans "Pick a Class" %}</span>
                         </div>
                         <select class="custom-select" id="inputGroupSelect01" name="classID">
                             {% for sec in allSection %}
@@ -101,12 +102,12 @@
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="typeUser" id="exampleRadios2" value="teacher">
                 <label class="form-check-label">
-                    Teacher Version
+                    {% trans "Teacher Version" %}
                 </label>
                 <div class="col-6">
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">Teacher Code</span>
+                            <span class="input-group-text" id="inputGroup-sizing-sm">{% trans "Teacher Code" %}</span>
                         </div>
                         <input type="password" class="form-control" aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-sm" name="token">
@@ -117,15 +118,16 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6 mx-auto">
-            <span class="font-weight-light"> • Teacher Code is for teacher use only</span><br>
-            <span class="font-weight-light"> • Contact Mr. Root services to verify your teacher status and create your section</span><br>
-            <span class="font-weight-light"> • Use your code as verification</span>
+            <span class="font-weight-light"> • {% trans "Teacher Code is for teacher use only" %}</span><br>
+            <span class="font-weight-light"> • <a href="{% static 'mrrootform.docx' %}"
+                download>{{ submi.assignment.title }}<span class="font-weight-bold">{% trans "Email this form" %}</span></a> {% trans "to filipdimi1999@gmail.com to get your section and Teacher Code for registration" %}.</span><br>
+            <span class="font-weight-light"> • {% trans "Use your code as verification" %}</span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6 mx-auto">
             <div class="input-group mb-3">
-                <button type="submit" class="btn btn-secondary btn-lg btn-block">Create Profile</button>
+                <button type="submit" class="btn btn-secondary btn-lg btn-block">{% trans "Create Profile" %}</button>
             </div>
         </div>
     </div>

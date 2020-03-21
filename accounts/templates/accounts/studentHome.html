@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load staticfiles %}
-
 
 {% block contect %}
 
@@ -10,16 +10,16 @@
         <img src="{% static 'student.png' %}" width="100%" class="d-inline-block alighn-top">
     </div>
     <div class="col-4 pt-5">
-        <h4 class="font-weight-light"><span class="oi oi-pencil"></span> Student Version</h4>
-        <span class="font-weight-bolder">First Name: </span>{{ user.first_name }}<br>
-        <span class="font-weight-bolder">Last Name: </span> {{ user.last_name }}<br>
-        <span class="font-weight-bolder">Email: </span>{{ user.email}}<br><br>
+        <h4 class="font-weight-light"><span class="oi oi-pencil"></span>{% trans "Student Version" %}</h4>
+        <span class="font-weight-bolder">{% trans "First Name" %}: </span>{{ user.first_name }}<br>
+        <span class="font-weight-bolder">{% trans "Last Name" %}: </span> {{ user.last_name }}<br>
+        <span class="font-weight-bolder">{% trans "Email" %}: </span>{{ user.email}}<br><br>
     </div>
 </div>
 <div class="row pt-3">
     <div class="col-12">
         <form method="POST" action="{% url 'seeMyGrades' %}">{% csrf_token %}
-            <button class="btn btn-info btn-block p-3" type="submit"><span class="oi oi-pie-chart"></span> See All My Grades</button>
+            <button class="btn btn-info btn-block p-3" type="submit"><span class="oi oi-pie-chart"></span>{% trans "See All My Grades" %}</button>
         </form>
     </div>
 </div>
@@ -29,15 +29,15 @@
         <div class="input-group mt-1">
             <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
                 name="sectionID">
-                <option value="empty" selected>Section</option>
+                <option value="empty" selected>{% trans "Section" %}</option>
                 {% for section in studentSections %}
-                {%if section.name != "GoingPrivate" %}
+                {% if section.name != "GoingPrivate" %}
                 <option value="{{ section.sectionFK.name }}">{{ section.sectionFK.name }} - {{ section.sectionFK.owner.last_name }} {{ section.sectionFK.owner.first_name }}</option>
                 {% endif %}
                 {% endfor %}
             </select>
             <div class="input-group-append">
-                <button class="btn btn-info" type="submit"> Grades</button>
+                <button class="btn btn-info" type="submit">{% trans " Grades" %}</button>
             </div>
         </div>
     </div>
@@ -48,15 +48,15 @@
             <thead>
                 <tr>
                     <td colspan="5" style="text-align: center;">
-                        <h3 class="font-weight-light">Active Homework</h3>
+                        <h3 class="font-weight-light">{% trans "Active Homework" %}</h3>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Max Points</th>
-                    <th scope="col">Due Date</th>
-                    <th scope="col">Section</th>
-                    <th scope="col">Instructions</th>
+                    <th scope="col">{% trans "Title" %}</th>
+                    <th scope="col">{% trans "Max Points" %}</th>
+                    <th scope="col">{% trans "Due Date" %}</th>
+                    <th scope="col">{% trans "Section" %}</th>
+                    <th scope="col">{% trans "Instructions" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,8 +66,7 @@
                     <td>{{ assignment.maxPoint}}</td>
                     <td>{{ assignment.dueDate}}</td>
                     <td>{{ assignment.section }}</td>
-                    <td><a href="{% url 'detail' assignment.id %}"><button type="button" class="btn btn-info">Show
-                                Me</button></a></td>
+                    <td><a href="{% url 'detail' assignment.id %}"><button type="button" class="btn btn-info">{% trans "Show Me" %}</button></a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -79,44 +78,36 @@
 <div class="row">
     <div class="col-12">
         <p class="text-justify">
-            <span class="font-weight-bold">Mr. Root</span> is open-source learning management system.
-            The Primary goal of Mr. Root is to help students and teachers to stay connected. <br>There are two ways for using Mr. Root Services:
-            <ol>
-                <li>Option - <a target="_blank" href="https://github.com/Synyster991/darkoont"><span class="font-weight-bold">Download this code</span></a> and use it on your own server with your own domain name. However, you need to keep the footer as a reference. </li>
-                <li>Option - Use our server and our domain name. Follow the instrustions below.</li>
-            </ol>            
+            <span class="font-weight-bold">Mr. Root</span>{% trans "is open-source learning management system. The Primary goal of Mr. Root is to help students and teachers to stay connected." %}          
         </p>
     </div>
 </div>
 <hr>
 <div class="row">
     <div class="col-6 border-right">
-        <p class="h5 text-center font-weight-normal mb-3">Student Version</p>
-        <span>This version gives you:</span>
+        <p class="h5 text-center font-weight-normal mb-3">{% trans "Student Version" %}</p>
+        <span>{% trans "This version gives you" %}:</span>
         <ul class="font-weight-light">
-            <li>New videos every week</li>
-            <li>New assignments to practice coding every week</li>
-            <li>24/7 Support</li>
-            <li>Graded assignments with feedback</li>
+            <li>{% trans "New videos every week" %}</li>
+            <li>{% trans "New assignments to practice coding every week" %}</li>
+            <li>24/7 {% trans "Support" %}</li>
+            <li>{% trans "Graded assignments with feedback" %}</li>
         </ul>
-        <p>Make sure to register for this version before the starting date or you will be left behind. There are due
-            dates so make sure to stay on track.</p>
+        <p>{% trans "Make sure to register for this version before the starting date or you will be left behind. There are due dates so make sure to stay on track" %}.</p>
     </div>
     <div class="col-6">
-        <p class="h5 text-center font-weight-normal mb-3">Teacher Version</p>
-        <span>This version gives you:</span>
+        <p class="h5 text-center font-weight-normal mb-3">{% trans "Teacher Version" %}</p>
+        <span>{% trans "This version gives you" %}:</span>
         <ul class="font-weight-light">
-            <li>Public and Private sections</li>
-            <li>Create assignment droplets</li>
-            <li>Grade assignments</li>
+            <li>{% trans "Public and Private sections" %}</li>
+            <li>{% trans "Create assignment droplets" %}</li>
+            <li>{% trans "Grade assignments" %}</li>
         </ul>
-        <p>Email <a href="{% static 'mrrootform.docx' %}"
-            download>{{ submi.assignment.title }}<span class="font-weight-bold">this form</span></a> to filipdimi1999@gmail.com to get your section and "Teacher Code" for registration.
+        <p><a href="{% static 'mrrootform.docx' %}"
+            download>{{ submi.assignment.title }}<span class="font-weight-bold">{% trans "Email this form" %}</span></a> {% trans "to filipdimi1999@gmail.com to get your section and Teacher Code for registration" %}.
         </p>
     </div>
 </div>
 <hr>
-
-
 {% endif %}
 {% endblock %}

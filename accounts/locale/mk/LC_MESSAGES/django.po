@@ -1,0 +1,271 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-21 19:44-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
+
+#: .\accounts\templates\accounts\login.html:8
+#: .\accounts\templates\accounts\login.html:37
+msgid "Log In"
+msgstr "Најави се"
+
+#: .\accounts\templates\accounts\login.html:18
+#: .\accounts\templates\accounts\signup.html:52
+msgid "Username"
+msgstr "Корисничко име"
+
+#: .\accounts\templates\accounts\login.html:28
+#: .\accounts\templates\accounts\signup.html:63
+msgid "Password"
+msgstr "Лозинка"
+
+#: .\accounts\templates\accounts\signup.html:7
+msgid "Sign Up"
+msgstr "Пријави се"
+
+#: .\accounts\templates\accounts\signup.html:19
+#: .\accounts\templates\accounts\studentHome.html:14
+#: .\accounts\templates\accounts\teacherHome.html:14
+msgid "First Name"
+msgstr "Име"
+
+#: .\accounts\templates\accounts\signup.html:30
+#: .\accounts\templates\accounts\studentHome.html:15
+#: .\accounts\templates\accounts\teacherHome.html:15
+msgid "Last Name"
+msgstr "Презиме"
+
+#: .\accounts\templates\accounts\signup.html:41
+#: .\accounts\templates\accounts\studentHome.html:16
+#: .\accounts\templates\accounts\teacherHome.html:16
+msgid "Email"
+msgstr "Емаил адреса"
+
+#: .\accounts\templates\accounts\signup.html:74
+msgid "Re-type Password"
+msgstr "Повтори лозинка"
+
+#: .\accounts\templates\accounts\signup.html:87
+#: .\accounts\templates\accounts\studentHome.html:13
+#: .\accounts\templates\accounts\studentHome.html:88
+msgid "Student Version"
+msgstr "Студент"
+
+#: .\accounts\templates\accounts\signup.html:92
+msgid "Pick a Class"
+msgstr "Одбери предмет"
+
+#: .\accounts\templates\accounts\signup.html:105
+#: .\accounts\templates\accounts\studentHome.html:99
+#: .\accounts\templates\accounts\teacherHome.html:13
+msgid "Teacher Version"
+msgstr "Професор"
+
+#: .\accounts\templates\accounts\signup.html:110
+msgid "Teacher Code"
+msgstr "Код"
+
+#: .\accounts\templates\accounts\signup.html:121
+msgid "Teacher Code is for teacher use only"
+msgstr "Кодот за професори е само во нивна употреба"
+
+#: .\accounts\templates\accounts\signup.html:123
+#: .\accounts\templates\accounts\studentHome.html:107
+msgid "Email this form"
+msgstr "Пратете ја оваа апликација"
+
+#: .\accounts\templates\accounts\signup.html:123
+#: .\accounts\templates\accounts\studentHome.html:107
+msgid ""
+"to filipdimi1999@gmail.com to get your section and Teacher Code for "
+"registration"
+msgstr ""
+"на filipdimi1999@gmail.com за потврда на опцијата професор и креирајте го "
+"вашиот ѕид"
+
+#: .\accounts\templates\accounts\signup.html:124
+msgid "Use your code as verification"
+msgstr "Внесете го кодот за потврда"
+
+#: .\accounts\templates\accounts\signup.html:130
+msgid "Create Profile"
+msgstr "Направи профил"
+
+#: .\accounts\templates\accounts\studentHome.html:22
+msgid "See All My Grades"
+msgstr " Преглед на сите оценки"
+
+#: .\accounts\templates\accounts\studentHome.html:32
+#: .\accounts\templates\accounts\studentHome.html:58
+#: .\accounts\templates\accounts\teacherHome.html:40
+#: .\accounts\templates\accounts\teacherHome.html:60
+#: .\accounts\templates\accounts\teacherHome.html:121
+msgid "Section"
+msgstr "Предмет"
+
+#: .\accounts\templates\accounts\studentHome.html:40
+msgid " Grades"
+msgstr " Оценки"
+
+#: .\accounts\templates\accounts\studentHome.html:51
+msgid "Active Homework"
+msgstr "Домашни задачи во тек"
+
+#: .\accounts\templates\accounts\studentHome.html:55
+msgid "Title"
+msgstr "Наслов"
+
+#: .\accounts\templates\accounts\studentHome.html:56
+msgid "Max Points"
+msgstr "Максимални поени"
+
+#: .\accounts\templates\accounts\studentHome.html:57
+msgid "Due Date"
+msgstr "Краен рок"
+
+#: .\accounts\templates\accounts\studentHome.html:59
+msgid "Instructions"
+msgstr "Инструкции"
+
+#: .\accounts\templates\accounts\studentHome.html:69
+msgid "Show Me"
+msgstr "Прикажи"
+
+#: .\accounts\templates\accounts\studentHome.html:81
+msgid ""
+"is open-source learning management system. The Primary goal of Mr. Root is "
+"to help students and teachers to stay connected."
+msgstr ""
+" е интернет платформа наменета за работа професор-ученик со цел да постои "
+"контакт на учениците со нивните професори со кој имаат можност на онлајн "
+"часови."
+
+#: .\accounts\templates\accounts\studentHome.html:89
+#: .\accounts\templates\accounts\studentHome.html:100
+msgid "This version gives you"
+msgstr "Оваа опција овозможува"
+
+#: .\accounts\templates\accounts\studentHome.html:91
+msgid "New videos every week"
+msgstr "Неделни видеа"
+
+#: .\accounts\templates\accounts\studentHome.html:92
+msgid "New assignments to practice coding every week"
+msgstr "Неделни домашни задачи"
+
+#: .\accounts\templates\accounts\studentHome.html:93
+msgid "Support"
+msgstr "поддршка"
+
+#: .\accounts\templates\accounts\studentHome.html:94
+msgid "Graded assignments with feedback"
+msgstr ""
+"Оценета домашна работа со коментар (или Коментар и оцена за извршена домашна "
+"задача)"
+
+#: .\accounts\templates\accounts\studentHome.html:96
+msgid ""
+"Make sure to register for this version before the starting date or you will "
+"be left behind. There are due dates so make sure to stay on track"
+msgstr ""
+"Регистирај се на Опцијата Ученик пред крајниот рок или во спротивно ќе "
+"заостанете со материјалот. Крајниот рок постои за да ја одржува вашата "
+"активност."
+
+#: .\accounts\templates\accounts\studentHome.html:102
+msgid "Public and Private sections"
+msgstr "Приватни и јавни часови"
+
+#: .\accounts\templates\accounts\studentHome.html:103
+msgid "Create assignment droplets"
+msgstr "Можност на ученикот да прикачи докумени"
+
+#: .\accounts\templates\accounts\studentHome.html:104
+msgid "Grade assignments"
+msgstr "Оценување на домашна работа"
+
+#: .\accounts\templates\accounts\teacherHome.html:18
+msgid "Create Assignment"
+msgstr "Креирај домашна задача"
+
+#: .\accounts\templates\accounts\teacherHome.html:20
+msgid "See Assignments"
+msgstr "Преглед на домашни задачи"
+
+#: .\accounts\templates\accounts\teacherHome.html:25
+#: .\accounts\templates\accounts\teacherHome.html:88
+msgid "Assignment"
+msgstr "Домашна задача"
+
+#: .\accounts\templates\accounts\teacherHome.html:31
+msgid "Submissions"
+msgstr "Објави"
+
+#: .\accounts\templates\accounts\teacherHome.html:48
+msgid "Students"
+msgstr "Студенти"
+
+#: .\accounts\templates\accounts\teacherHome.html:56
+msgid "See Student's Grades"
+msgstr "Преглед на оценки"
+
+#: .\accounts\templates\accounts\teacherHome.html:70
+#: .\accounts\templates\accounts\teacherHome.html:96
+msgid "Student Name"
+msgstr "Студент"
+
+#: .\accounts\templates\accounts\teacherHome.html:78
+#, fuzzy
+#| msgid " Grades"
+msgid "Grades"
+msgstr " Оценки"
+
+#: .\accounts\templates\accounts\teacherHome.html:84
+msgid "Grade Student's Assignment"
+msgstr "Оцени домашната работа"
+
+#: .\accounts\templates\accounts\teacherHome.html:106
+msgid "Grade Submission"
+msgstr "Оцени објава"
+
+#: .\accounts\templates\accounts\teacherHome.html:116
+msgid "Recent Submissions"
+msgstr "Неодамнешни објави"
+
+#: .\accounts\templates\accounts\teacherHome.html:120
+msgid "Full Name"
+msgstr "Име"
+
+#: .\accounts\templates\accounts\teacherHome.html:122
+msgid "Assignments (Click to Download)"
+msgstr "Задачи (Превземи со кликнување на насловот)"
+
+#~ msgid ""
+#~ "Email filipdimi1999@gmail.com to verify your teacher status and create "
+#~ "your section"
+#~ msgstr ""
+#~ " на filipdimi1999@gmail.com за потврда на опцијата професор и креирајте "
+#~ "го вашиот ѕид"
+
+#~ msgid "this form"
+#~ msgstr "оваа апликација"
+
+#~ msgid ""
+#~ " to filipdimi1999@gmail.com to get your section and 'Teacher Code' for "
+#~ "registration"
+#~ msgstr ""
+#~ "на filipdimi1999@gmail.com за потврда на опцијата професор и креирајте го "
+#~ "вашиот ѕид"

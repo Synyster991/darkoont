@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load staticfiles %}
-
 
 {% block contect %}
 
@@ -10,25 +10,25 @@
         <img src="{% static 'teacher.png' %}" width="100%" class="d-inline-block alighn-top">
     </div>
     <div class="col-9 pt-5">
-        <h4 class="font-weight-light"><span class="oi oi-spreadsheet"></span> Teacher Version</h4>
-        <span class="font-weight-bolder">First Name: </span>{{ user.first_name }}<br>
-        <span class="font-weight-bolder">Last Name: </span> {{ user.last_name }}<br>
-        <span class="font-weight-bolder">Email: </span>{{ user.email}}<br><br>
+        <h4 class="font-weight-light"><span class="oi oi-spreadsheet"></span> {% trans "Teacher Version" %}</h4>
+        <span class="font-weight-bolder">{% trans "First Name" %}: </span>{{ user.first_name }}<br>
+        <span class="font-weight-bolder">{% trans "Last Name" %}: </span> {{ user.last_name }}<br>
+        <span class="font-weight-bolder">{% trans "Email" %}: </span>{{ user.email}}<br><br>
         <a href="{% url 'create' %}"><button type="button" class="btn btn-success"><span class="oi oi-plus"></span>
-                Create Assignment</button></span></a><br>
+            {% trans "Create Assignment" %}</button></span></a><br>
         <a href="{% url 'teacherAssignments' %}"><button type="button" class="btn btn-success mt-1"><span
-                    class="oi oi-book"></span> See Assignments</button></span> </a>
+                    class="oi oi-book"></span> {% trans "See Assignments" %}</button></span> </a>
         <form method="POST" action="{% url 'seeSubmissions' %}">{% csrf_token %}
             <div class="input-group mt-1">
                 <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
                     name="assignmentID">
-                    <option selected>Assignment</option>
+                    <option selected>{% trans "Assignment" %}</option>
                     {% for assignment in assignments %}
                     <option value="{{ assignment.id }}">{{ assignment.section.name }} - {{ assignment.title }}</option>
                     {% endfor %}
                 </select>
                 <div class="input-group-append">
-                    <button class="btn btn-success" type="submit"> Submissions</button>
+                    <button class="btn btn-success" type="submit"> {% trans "Submissions" %}</button>
                 </div>
             </div>
         </form>
@@ -37,7 +37,7 @@
             <div class="input-group mt-1">
                 <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
                     name="sectionID">
-                    <option value="empty" selected>Section</option>
+                    <option value="empty" selected>{% trans "Section" %}</option>
                     {% for section in sections %}
                     {%if section.name != "GoingPrivate" %}
                     <option value="{{ section.name }}">{{ section.name }} </option>
@@ -45,7 +45,7 @@
                     {% endfor %}
                 </select>
                 <div class="input-group-append">
-                    <button class="btn btn-success" type="submit"> Students</button>
+                    <button class="btn btn-success" type="submit"> {% trans "Students" %}</button>
                 </div>
             </div>
         </form>
@@ -53,11 +53,11 @@
 </div>
 <form class="mt-5 p-3 rounded-lg" style="background-color: rgb(111, 114, 117);" method="POST" action="{% url 'showGrades' %}">
     {% csrf_token %}
-    <h3 class="text-center font-weight-light" style="color: #fff;"> See Student's Grades</h3>
+    <h3 class="text-center font-weight-light" style="color: #fff;"> {% trans "See Student's Grades" %}</h3>
     <div class="form-row">
         <div class="form-group col-md-6">
             <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="sectionIDforGrade">
-            <option value="empty" selected>Section</option>
+            <option value="empty" selected>{% trans "Section" %}</option>
             {% for section in sections %}
             {%if section.name != "GoingPrivate" %}
             <option value="{{ section.name }}">{{ section.name }} </option>
@@ -67,7 +67,7 @@
         </div>
         <div class="form-group col-md-4">
             <select class="custom-select" id="inputGroupSelect04" name="studentIDforGrade">
-                <option selected>Student Name</option>
+                <option selected>{% trans "Student Name" %}</option>
                 {% for validStudent in validStudents%}
                 <option value="{{ validStudent.studentFK.username }}">{{ validStudent.studentFK.last_name }}
                     {{ validStudent.studentFK.first_name }}</option>
@@ -75,17 +75,17 @@
             </select>
         </div>
         <div class="form-group col-md-2">
-            <button class="btn btn-success btn-block" type="submit"><span class="oi oi-pie-chart"></span> Grades</button>
+            <button class="btn btn-success btn-block" type="submit"><span class="oi oi-pie-chart"></span> {% trans "Grades" %}</button>
         </div>
     </div>
 </form>
 <form class="mt-5 p-3 rounded-lg" style="background-color: #343A40;" method="POST" action="{% url 'gradeStudent' %}">
     {% csrf_token %}
-    <h3 class="text-center font-weight-light" style="color: #fff;"> Grade Student's Assignment</h3>
+    <h3 class="text-center font-weight-light" style="color: #fff;"> {% trans "Grade Student's Assignment" %}</h3>
     <div class="form-row">
         <div class="form-group col-md-6">
             <select class="custom-select" id="inputGroupSelect04" name="assignmentID">
-                <option selected>Assignment</option>
+                <option selected>{% trans "Assignment" %}</option>
                 {% for assignment in assignments %}
                 <option value="{{ assignment.id }}">{{ assignment.section.name }} - {{ assignment.title }}</option>
                 {% endfor %}
@@ -93,7 +93,7 @@
         </div>
         <div class="form-group col-md-4">
             <select class="custom-select" id="inputGroupSelect04" name="studentID">
-                <option selected>Student Name</option>
+                <option selected>{% trans "Student Name" %}</option>
                 {% for validStudent in validStudents%}
                 <option value="{{ validStudent.studentFK.username }}">{{ validStudent.studentFK.last_name }}
                     {{ validStudent.studentFK.first_name }}</option>
@@ -103,8 +103,7 @@
         <div class="form-group col-md-2">
             <input placeholder="Score" type="text" class="form-control" name="gradeID">
         </div>
-        <button class="btn btn-success btn-block" type="submit"><span class="oi oi-pie-chart"></span> Grade
-            Submission</button>
+        <button class="btn btn-success btn-block" type="submit"><span class="oi oi-pie-chart"></span> {% trans "Grade Submission" %}</button>
     </div>
 </form>
 </div>
@@ -114,13 +113,13 @@
             <thead>
                 <tr>
                     <td colspan="5">
-                        <h3 class="font-weight-light">Recent Submissions</h3>
+                        <h3 class="font-weight-light">{% trans "Recent Submissions" %}</h3>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="col">Full Name</th>
-                    <th scope="col">Section</th>
-                    <th scope="col">Assignments (Click to Download)</th>
+                    <th scope="col">{% trans "Full Name" %}</th>
+                    <th scope="col">{% trans "Section" %}</th>
+                    <th scope="col">{% trans "Assignments (Click to Download)" %}</th>
                 </tr>
             </thead>
             <tbody>

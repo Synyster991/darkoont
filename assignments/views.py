@@ -210,6 +210,9 @@ def seeGradesPerSection(request):
                     counterForGradedAssignments += 1
                     totalScore += assignment.points
 
-        averageScore = "{0:.2f}".format(totalScore / counterForGradedAssignments)
+        try:
+            averageScore = "{0:.2f}".format(totalScore / counterForGradedAssignments)
+        except ZeroDivisionError:
+            averageScore = "{0:.2f}".format(totalScore / 1)
 
     return render(request, 'assignments/seeGradesPerSection.html', {"sectionID": sectionID, "checkedSubmissions": checkedSubmissions, "averageScore": averageScore})

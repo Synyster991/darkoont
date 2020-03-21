@@ -14,6 +14,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Assignment</th>
+                <th scope="col">Section</th>
                 <th scope="col">Points</th>
             </tr>
         </thead>
@@ -22,6 +23,7 @@
             <tr>
                 <th scope="row">{{ gradedAssignment.assignment.pk }}</th>
                 <td>{{ gradedAssignment.assignment.title }}</td>
+                <td>{{ gradedAssignment.assignment.section.name }}</td>
                 {% if gradedAssignment.points == -1 %}
                 <td>Not Graded</td>
                 {% else %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import AssignmentTeacherSide, studentAssignments, Sections, studentAssignments
+from .models import AssignmentTeacherSide, studentAssignments, Sections
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from accounts.models import StudentsTable
@@ -188,3 +188,28 @@ def seeSectionStudents(request):
         return render(request, 'assignments/seeSectionStudents.html', {"checkedStudents": checkedStudents, "sectionID": sectionID})
     except:
         pass
+
+
+def seeGradesPerSection(request):
+    if request.method == 'POST':
+        # Prevent from unnecesery error
+        if request.POST['sectionID'] == "empty":
+            return redirect('home')
+
+        checkedSubmissions = []
+        totalScore = 0
+        averageScore = 0.0
+        counterForGradedAssignments = 0
+        sectionID = request.POST['sectionID']
+        submittedAssignments = studentAssignments.objects.filter(studentUser=request.user)
+
+        for assignment in submittedAssignments:
+            if assignment.assignment.section.name == sectionID:
+                checkedSubmissions.append(assignment)
+                if assignment.points != -1:
+                    counterForGradedAssignments += 1
+                    totalScore += assignment.points
+
+        averageScore = "{0:.2f}".format(totalScore / counterForGradedAssignments)
+
+    return render(request, 'assignments/seeGradesPerSection.html', {"sectionID": sectionID, "checkedSubmissions": checkedSubmissions, "averageScore": averageScore})

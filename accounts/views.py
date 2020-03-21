@@ -23,6 +23,7 @@ def home(request):
         tempSectionsList = []
         teacherAssignments = []
         submittedAssignments = []      
+        renderStudentSections = []
         
         # Get only student users
         users_in_group = Group.objects.get(name="Student").user_set.all()
@@ -33,6 +34,9 @@ def home(request):
         for assign in assignments:
             if assign.section in tempSections:
                 teacherAssignments.append(assign)
+
+        for asd in studentSections:
+            renderStudentSections.append(asd)
 
         # Checking the right section and due date for student's assignments
         for assignment in assignments:
@@ -58,7 +62,7 @@ def home(request):
         
         # Checking if the logged in user is student or teacher
         if user in users_in_group:
-            return render(request, 'accounts/studentHome.html', {"assignments":validAssignments})
+            return render(request, 'accounts/studentHome.html', {"assignments":validAssignments, "studentSections": renderStudentSections})
         else:
             return render(request, 'accounts/teacherHome.html', {"submittedAssignments": submittedAssignments, "validStudents": validStudents, "assignments": teacherAssignments, "sections": tempSections})
 

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block contect %}
+<div class="row pt-5">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <td colspan="5" style="text-align: center;">
+                    <h3 class="font-weight-light">Grades For {{ sectionID }} <br> Average Score ({{ averageScore }})</h3>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Assignment Name</th>
+                <th scope="col">Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assign in checkedSubmissions %}
+            <tr>
+                <td>{{ assign.assignment.title }}</td>
+                {% if assign.points != -1 %}
+                <td>{{ assign.points }}/{{ assign.assignment.maxPoint }}</td>
+                {% else %}
+                <td>Not Graded!</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

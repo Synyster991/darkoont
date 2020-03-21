@@ -19,14 +19,33 @@
 <div class="row pt-3">
     <div class="col-12">
         <form method="POST" action="{% url 'seeMyGrades' %}">{% csrf_token %}
-            <button class="btn btn-info btn-block p-3" type="submit"><span class="oi oi-pie-chart"></span> See My
-                Grades</button>
+            <button class="btn btn-info btn-block p-3" type="submit"><span class="oi oi-pie-chart"></span> See All My Grades</button>
+        </form>
     </div>
 </div>
-<div class="row pt-2">
+<div class="row pt-3">
     <div class="col-12">
-        <table class="table">
-            <thead class="thead-dark">
+    <form method="POST" action="{% url 'seeGradesPerSection' %}">{% csrf_token %}
+        <div class="input-group mt-1">
+            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
+                name="sectionID">
+                <option value="empty" selected>Section</option>
+                {% for section in studentSections %}
+                {%if section.name != "GoingPrivate" %}
+                <option value="{{ section.sectionFK.name }}">{{ section.sectionFK.name }} - {{ section.sectionFK.owner.last_name }} {{ section.sectionFK.owner.first_name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-info" type="submit"> Grades</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row pt-5">
+    <div class="col-12">
+        <table class="table table-hover table-dark mx-auto">
+            <thead>
                 <tr>
                     <td colspan="5" style="text-align: center;">
                         <h3 class="font-weight-light">Active Homework</h3>
@@ -36,7 +55,6 @@
                     <th scope="col">Title</th>
                     <th scope="col">Max Points</th>
                     <th scope="col">Due Date</th>
-                    <th scope="col">Teacher</th>
                     <th scope="col">Section</th>
                     <th scope="col">Instructions</th>
                 </tr>
@@ -47,7 +65,6 @@
                     <th scope="row">{{ assignment.title }}</th>
                     <td>{{ assignment.maxPoint}}</td>
                     <td>{{ assignment.dueDate}}</td>
-                    <td>{{ assignment.teacherUser.first_name }} {{ assignment.teacherUser.last_name }}</td>
                     <td>{{ assignment.section }}</td>
                     <td><a href="{% url 'detail' assignment.id %}"><button type="button" class="btn btn-info">Show
                                 Me</button></a></td>

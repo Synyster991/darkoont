@@ -7,14 +7,16 @@
         <thead>
             <tr>
                 <th scope="col">Title</th>
+                <th scope="col">Section</th>
                 <th scope="col">Max Points</th>
                 <th scope="col">Due Date</th>
             </tr>
         </thead>
         <tbody>
-            {% for assignment in assignments.all%}
+            {% for assignment in checkedAssignments %}
                 <tr>
                     <td>{{ assignment.title }}</td>
+                    <td>{{ assignment.section }}</td>
                     <td>{{ assignment.maxPoint }}</td>
                     <td>{{ assignment.dueDate }}</td> 
                 </tr>

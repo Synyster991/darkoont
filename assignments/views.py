@@ -26,7 +26,7 @@ def create(request):
                 assignment.section = tempSection
                 assignment.dueDate = request.POST['date']
                 assignment.instructions = request.POST['instructions']
-                assignment.maxPoint = request.POST['points']
+                assignment.maxPoint = 100
                 assignment.teacherUser = request.user
                 assignment.teacherDocument = request.FILES['teacherfile']
                 assignment.videoLink = request.POST['video']
@@ -62,14 +62,18 @@ def detail(request, assignment_id):
 @user_passes_test(lambda u: u.groups.filter(name='Teacher').exists())
 def teacherAssignments(request):
     # Teacher can see their own created assignments
-    try:
-        user = User.objects.get(username=request.user)
-        tempSection = Sections.objects.get(owner=user)
-        assignments = AssignmentTeacherSide.objects.filter(section=tempSection)
-        return render(request, 'assignments/teacherAssignments.html', {"assignments": assignments})
-    except:
-        return render(request, 'assignments/teacherAssignments.html')
-    
+
+    checkedAssignments = []
+    user = User.objects.get(username=request.user)
+    tempSection = Sections.objects.filter(owner=user)
+    assignments = AssignmentTeacherSide.objects.filter(teacherUser=user)
+
+    for assign in assignments:
+        if assign.section in tempSection:
+            checkedAssignments.append(assign)
+
+    return render(request, 'assignments/teacherAssignments.html', {"checkedAssignments":checkedAssignments})
+
 
 @login_required(login_url="/accounts/signup")
 def submitAssignmentStudent(request, assignment_id):
@@ -86,8 +90,8 @@ def submitAssignmentStudent(request, assignment_id):
             tempAssignment.save()
             messages.info(request, 'Assignment Submitted!')
     except:
+        messages.info(request, 'All fields are required')
         messages.info(request, 'Assignment is not Submitted! Please Try again.')
-        pass
 
     return redirect('home')
 
@@ -119,8 +123,13 @@ def showGrades(request):
             except ZeroDivisionError:
                 averageScore = "{0:.2f}".format(totalScore / 1)
 
-        return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments, "studentInfo": user, "averageScore": averageScore, "sectionName": sectionName})
+        if validAssignments == []:
+            messages.info(request, 'Student not found!')
+            return redirect('home')
+        else:
+            return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments, "studentInfo": user, "averageScore": averageScore, "sectionName": sectionName})
     except:
+        messages.info(request, 'Student not found!')
         return redirect('home')
 
     
@@ -180,6 +189,7 @@ def seeSubmissions(request):
 
         return render(request,'assignments/seeSubmissions.html', {"submissions": submissions, "tempAssignment":tempAssignment})
     except:
+        messages.info(request, 'Submissions not found')
         return redirect('home')
 
 
@@ -189,6 +199,7 @@ def seeSectionStudents(request):
         if request.method == 'POST':
             # Prevent from unnecesery error
             if request.POST['sectionID'] == "empty":
+                messages.info(request, 'Section not found!')
                 return redirect('home')
 
             sectionID = request.POST['sectionID']
@@ -201,7 +212,8 @@ def seeSectionStudents(request):
 
         return render(request, 'assignments/seeSectionStudents.html', {"checkedStudents": checkedStudents, "sectionID": sectionID})
     except:
-        pass
+        messages.info(request, 'Section not found!')
+        return redirect('home')
 
 
 def seeGradesPerSection(request):
@@ -210,6 +222,7 @@ def seeGradesPerSection(request):
         if request.method == 'POST':
             # Prevent from unnecesery error
             if request.POST['sectionID'] == "empty":
+                messages.info(request, 'Section not found!')
                 return redirect('home')
 
             checkedSubmissions = []
@@ -233,4 +246,5 @@ def seeGradesPerSection(request):
 
             return render(request, 'assignments/seeGradesPerSection.html', {"sectionID": sectionID, "checkedSubmissions": checkedSubmissions, "averageScore": averageScore})
     except:
-        pass
+        messages.info(request, 'Section not found!')
+        return redirect('home')

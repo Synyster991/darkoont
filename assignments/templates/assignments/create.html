@@ -8,11 +8,9 @@
         <div class="col-6">
             <h2 class="display-4 pt-4 ">Creating Assignment</h2>
         </div>
-        <div class="col-1 pt-5">
-            <div class="spinner-border text-success" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6 mx-auto">
             {% if error %}
             <h5 style="color: red; padding: .5rem 0rem;">{{ error }}</h5>
             {% endif %}
@@ -60,7 +58,7 @@
                     <span class="input-group-text" id="inputGroup-sizing-default">Max Points</span>
                 </div>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" name="points">
+                    aria-describedby="inputGroup-sizing-default" name="points" placeholder="100" disabled>
             </div>
         </div>
     </div>

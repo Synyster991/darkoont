@@ -68,7 +68,7 @@
 
     <div class="container">
         {% if messages %}
-        <ul class="messages" style="font-size: 1.5rem;">
+        <ul class="messages" style="font-size: 1.5rem; color: red;">
             {% for message in messages %}
             <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
                 {% endfor %}

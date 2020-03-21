@@ -118,10 +118,12 @@ def showGrades(request):
                 averageScore = "{0:.2f}".format(totalScore / counterForGradedAssignments)
             except ZeroDivisionError:
                 averageScore = "{0:.2f}".format(totalScore / 1)
-    except:
-        messages.info(request, 'Student is not part of that section!')
 
-    return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments, "studentInfo": user, "averageScore": averageScore, "sectionName": sectionName})
+        return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments, "studentInfo": user, "averageScore": averageScore, "sectionName": sectionName})
+    except:
+        return redirect('home')
+
+    
 
 
 @login_required(login_url="/accounts/signup")    

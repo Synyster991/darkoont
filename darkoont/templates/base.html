@@ -1,3 +1,4 @@
+{% load i18n %}
 <!doctype html>
 <html lang="en">
 
@@ -53,12 +54,12 @@
                     <div class="navbar-nav ml-auto">
                         {% if user.is_authenticated %}
                         <a class="nav-item nav-link"
-                            href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                            href="javascript:{document.getElementById('logout').submit()}">{% trans "Logout" %}</a>
                         <form id="logout" method="POST" action="{% url 'logout' %}">{% csrf_token %}
                         </form>
                         {% else %}
-                        <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
-                        <a class="nav-item nav-link" href="{% url 'login' %}">Log in</a>
+                        <a class="nav-item nav-link" href="{% url 'signup' %}">{% trans "Sign Up" %}</a>
+                        <a class="nav-item nav-link" href="{% url 'login' %}">{% trans "Log in" %}</a>
                         {% endif %}
                     </div>
                 </div>
@@ -82,8 +83,8 @@
     <footer class="text-muted">
         <div class="container text-right">
             <p>&copy; Mr. Root {% now "Y" %}</p>
-            <p style="font-size: .9rem; margin-top: -20px;">Created by <a href="http://filipdimitrievski.com" target="_blank">Filip Dimitrievski</a></p>
-            <p style="font-size: .9rem; margin-top: -20px;"><a href="https://github.com/Synyster991/darkoont" target="_blank">Source Code</a></p>
+            <p style="font-size: .9rem; margin-top: -20px;">{% trans "Created by" %} <a href="http://filipdimitrievski.com" target="_blank">Filip Dimitrievski</a></p>
+            <p style="font-size: .9rem; margin-top: -20px;"><a href="https://github.com/Synyster991/darkoont" target="_blank">{% trans "Source Code" %}</a></p>
         </div>
         <!--This Webiste is created by Filip Dimitrievski
         Email: f_dimitrievski@outlook.com

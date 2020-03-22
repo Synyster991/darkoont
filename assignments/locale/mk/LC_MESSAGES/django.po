@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 20:48-0400\n"
+"POT-Creation-Date: 2020-03-21 21:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -159,7 +159,7 @@ msgstr "Сите полиња се задолжителни"
 msgid "Assignment is not Submitted! Please Try again."
 msgstr "Домашната работа не е објавена! Ве молиме обидете се повторно."
 
-#: .\assignments\views.py:129
+#: .\assignments\views.py:129 .\assignments\views.py:134
 msgid "Student not found!"
 msgstr "Студентот не е запишан на тој предмет!"
 

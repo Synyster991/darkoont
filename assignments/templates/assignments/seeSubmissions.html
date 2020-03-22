@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load staticfiles %}
 
 {% block contect %}
@@ -7,13 +8,13 @@
         <thead>
             <tr>
                 <td colspan="5">
-                    <h3 class="font-weight-light">Assignment: {{ tempAssignment.title }}</h3>
+                    <h3 class="font-weight-light">{% trans "Assignment" %}: {{ tempAssignment.title }}</h3>
                 </td>
             </tr>
             <tr>
-                <th scope="col">Full Name</th>
-                <th scope="col">Assignment (Click to Download)</th>
-                <th scope="col">Grade</th>
+                <th scope="col">{% trans "Full Name" %}</th>
+                <th scope="col">{% trans "Assignment (Click to Download)" %}</th>
+                <th scope="col">{% trans "Grade" %}</th>
             </tr>
         </thead>
         <tbody>

@@ -116,10 +116,6 @@ msgstr " Преглед на сите оценки"
 msgid "Section"
 msgstr "Предмет"
 
-#: .\accounts\templates\accounts\studentHome.html:40
-msgid " Grades"
-msgstr " Оценки"
-
 #: .\accounts\templates\accounts\studentHome.html:51
 msgid "Active Homework"
 msgstr "Домашни задачи во тек"
@@ -228,8 +224,6 @@ msgid "Student Name"
 msgstr "Студент"
 
 #: .\accounts\templates\accounts\teacherHome.html:78
-#, fuzzy
-#| msgid " Grades"
 msgid "Grades"
 msgstr " Оценки"
 
@@ -239,7 +233,7 @@ msgstr "Оцени домашната работа"
 
 #: .\accounts\templates\accounts\teacherHome.html:106
 msgid "Grade Submission"
-msgstr "Оцени објава"
+msgstr "Оцени домашна работа"
 
 #: .\accounts\templates\accounts\teacherHome.html:116
 msgid "Recent Submissions"

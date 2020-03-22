@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load staticfiles %}
 
 {% block contect %}
@@ -6,10 +7,10 @@
     <table class="table table-hover table-dark">
         <thead>
             <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Section</th>
-                <th scope="col">Max Points</th>
-                <th scope="col">Due Date</th>
+                <th scope="col">{% trans "Title" %}</th>
+                <th scope="col">{% trans "Section" %}</th>
+                <th scope="col">{% trans "Max Points" %}</th>
+                <th scope="col">{% trans "Due Date" %}</th>
             </tr>
         </thead>
         <tbody>

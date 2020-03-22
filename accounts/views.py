@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.contrib.auth.models import Group
 from assignments.models import AssignmentTeacherSide, studentAssignments, Sections
 from accounts.models import TeachersTable, StudentsTable
+from django.utils.translation import gettext as _
 from datetime import datetime
 
 def home(request):
@@ -86,7 +87,7 @@ def signup(request):
         if isPasswordValid:
             try:
                 user = User.objects.get(username=request.POST['username'])
-                return render(request, 'accounts/signup.html', {"error": "This username is taken!", "allSection": allSection})
+                return render(request, 'accounts/signup.html', {"error": _("This username is taken!"), "allSection": allSection})
             except User.DoesNotExist:
                 user = User()
                 user.first_name = request.POST['fname']
@@ -108,7 +109,7 @@ def signup(request):
                         tempTeacher.sectionFK = tempSections
                         tempTeacher.save()
                     else:
-                        return render(request, 'accounts/signup.html', {"error": "Your token is invalid!", "allSection": allSection})
+                        return render(request, 'accounts/signup.html', {"error": _("Your token is invalid!"), "allSection": allSection})
                 elif request.POST['typeUser'] == 'student':
                     tempStudent = StudentsTable()
                     tempSection = Sections.objects.get(name=keepSectionID)
@@ -130,7 +131,7 @@ def signup(request):
  
                 return redirect('home')
         else:
-             return render(request, 'accounts/signup.html', {"error": "Invalid password!", "allSection": allSection})
+             return render(request, 'accounts/signup.html', {"error": _("Invalid password!"), "allSection": allSection})
     else:
         return render(request, 'accounts/signup.html', {"allSection": allSection})
 
@@ -143,7 +144,7 @@ def login(request):
             auth.login(request, user)
             return redirect('home')
         else:
-            return render(request, 'accounts/login.html', {"error":"Username or password is incorrect!"})
+            return render(request, 'accounts/login.html', {"error":_("Username or password is incorrect!")})
     else:
         return render(request, 'accounts/login.html')
         

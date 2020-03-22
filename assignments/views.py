@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from accounts.models import StudentsTable
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test, login_required
+from django.utils.translation import gettext as _
+
 
 @login_required(login_url="/accounts/signup")
 @user_passes_test(lambda u: u.groups.filter(name='Teacher').exists())
@@ -35,11 +37,11 @@ def create(request):
                 messages.info(request, 'Assignment Created!')
                 return redirect('home')
             else:
-                return render(request, 'assignments/create.html', {"error":"All fields are required!", "availableSection": availableSection})
+                return render(request, 'assignments/create.html', {"error":_("All fields are required!"), "availableSection": availableSection})
         else:
             return render(request, 'assignments/create.html', {"availableSection": availableSection})
     except:
-        messages.info(request, 'Assignment Not Created!')
+        messages.info(request, _('Assignment Not Created!'))
         return render(request, 'assignments/create.html', {"availableSection": availableSection})
 
 
@@ -88,10 +90,10 @@ def submitAssignmentStudent(request, assignment_id):
             tempAssignment.document = request.FILES['myfile']
             tempAssignment.studentUser = request.user
             tempAssignment.save()
-            messages.info(request, 'Assignment Submitted!')
+            messages.info(request, _('Assignment Submitted!'))
     except:
-        messages.info(request, 'All fields are required')
-        messages.info(request, 'Assignment is not Submitted! Please Try again.')
+        messages.info(request, _('All fields are required'))
+        messages.info(request, _('Assignment is not Submitted! Please Try again.'))
 
     return redirect('home')
 
@@ -124,12 +126,12 @@ def showGrades(request):
                 averageScore = "{0:.2f}".format(totalScore / 1)
 
         if validAssignments == []:
-            messages.info(request, 'Student not found!')
+            messages.info(request, _('Student not found!'))
             return redirect('home')
         else:
             return render(request, 'assignments/gradeStudent.html', {"validAssignments": validAssignments, "studentInfo": user, "averageScore": averageScore, "sectionName": sectionName})
     except:
-        messages.info(request, 'Student not found!')
+        messages.info(request,  _('Student not found!'))
         return redirect('home')
 
     
@@ -157,11 +159,11 @@ def gradeStudent(request):
                 
             gradeThisAssignment.points = tempGrade
             gradeThisAssignment.save()
-            messages.info(request, 'Assignment Graded!')
+            messages.info(request, _('Assignment Graded!'))
 
             return redirect('home')
     except:
-        messages.info(request, 'Assignment is not ready to be graded!')
+        messages.info(request, _('Assignment is not ready to be graded!'))
         return redirect('home')
 
 
@@ -189,7 +191,7 @@ def seeSubmissions(request):
 
         return render(request,'assignments/seeSubmissions.html', {"submissions": submissions, "tempAssignment":tempAssignment})
     except:
-        messages.info(request, 'Submissions not found')
+        messages.info(request, _('Submissions not found'))
         return redirect('home')
 
 
@@ -199,7 +201,7 @@ def seeSectionStudents(request):
         if request.method == 'POST':
             # Prevent from unnecesery error
             if request.POST['sectionID'] == "empty":
-                messages.info(request, 'Section not found!')
+                messages.info(request, _('Section not found!'))
                 return redirect('home')
 
             sectionID = request.POST['sectionID']
@@ -212,7 +214,7 @@ def seeSectionStudents(request):
 
         return render(request, 'assignments/seeSectionStudents.html', {"checkedStudents": checkedStudents, "sectionID": sectionID})
     except:
-        messages.info(request, 'Section not found!')
+        messages.info(request, _('Section not found!'))
         return redirect('home')
 
 
@@ -222,7 +224,7 @@ def seeGradesPerSection(request):
         if request.method == 'POST':
             # Prevent from unnecesery error
             if request.POST['sectionID'] == "empty":
-                messages.info(request, 'Section not found!')
+                messages.info(request, _('Section not found!'))
                 return redirect('home')
 
             checkedSubmissions = []
@@ -246,5 +248,5 @@ def seeGradesPerSection(request):
 
             return render(request, 'assignments/seeGradesPerSection.html', {"sectionID": sectionID, "checkedSubmissions": checkedSubmissions, "averageScore": averageScore})
     except:
-        messages.info(request, 'Section not found!')
+        messages.info(request, _('Section not found!'))
         return redirect('home')

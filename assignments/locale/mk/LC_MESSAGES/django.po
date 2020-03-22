@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 20:22-0400\n"
+"POT-Creation-Date: 2020-03-21 20:48-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,95 +16,168 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
+
 #: .\assignments\templates\assignments\create.html:10
-msgid "Creating Assignment" msgstr "Креирање на домашна работа"
+msgid "Creating Assignment"
+msgstr "Креирање на домашна работа"
 
 #: .\assignments\templates\assignments\create.html:24
 #: .\assignments\templates\assignments\teacherAssignments.html:10
-msgid "Title" msgstr "Наслов"
+msgid "Title"
+msgstr "Наслов"
 
 #: .\assignments\templates\assignments\create.html:35
-msgid "Pick a Section" msgstr "Одбери предмет"
+msgid "Pick a Section"
+msgstr "Одбери предмет"
 
 #: .\assignments\templates\assignments\create.html:48
 #: .\assignments\templates\assignments\detail.html:19
 #: .\assignments\templates\assignments\teacherAssignments.html:13
-msgid "Due Date" msgstr "Краен рок"
+msgid "Due Date"
+msgstr "Краен рок"
 
 #: .\assignments\templates\assignments\create.html:59
 #: .\assignments\templates\assignments\detail.html:18
 #: .\assignments\templates\assignments\teacherAssignments.html:12
-msgid "Max Points" msgstr "Максимални поени"
+msgid "Max Points"
+msgstr "Максимални поени"
 
 #: .\assignments\templates\assignments\create.html:70
-msgid "Source Link" msgstr "Материјал (внесете линк)"
+msgid "Source Link"
+msgstr "Материјал (внесете линк)"
 
 #: .\assignments\templates\assignments\create.html:81
-msgid "Document" msgstr "Документ"
+msgid "Document"
+msgstr "Документ"
 
 #: .\assignments\templates\assignments\create.html:91
-msgid "Instructions" msgstr "Инструкции"
+msgid "Instructions"
+msgstr "Инструкции"
 
 #: .\assignments\templates\assignments\create.html:101
-msgid "Create Homework" msgstr "Задавање домашна задача"
+msgid "Create Homework"
+msgstr "Задавање домашна задача"
 
 #: .\assignments\templates\assignments\detail.html:17
-msgid "Issued by" msgstr "Проф."
+msgid "Issued by"
+msgstr "Проф."
 
 #: .\assignments\templates\assignments\detail.html:38
-msgid "Watch Tutorial" msgstr "Преглед на упатство"
+msgid "Watch Tutorial"
+msgstr "Преглед на упатство"
 
 #: .\assignments\templates\assignments\detail.html:40
-msgid "Download Assignment" msgstr " Преземи домашна задача"
+msgid "Download Assignment"
+msgstr " Преземи домашна задача"
 
 #: .\assignments\templates\assignments\detail.html:45
-msgid "Submit" msgstr "Објави"
+msgid "Submit"
+msgstr "Објави"
 
 #: .\assignments\templates\assignments\detail.html:48
-msgid "Submitted" msgstr "Објавено"
+msgid "Submitted"
+msgstr "Објавено"
 
 #: .\assignments\templates\assignments\gradeStudent.html:10
-msgid "Student" msgstr "Студент"
+msgid "Student"
+msgstr "Студент"
 
 #: .\assignments\templates\assignments\gradeStudent.html:10
 #: .\assignments\templates\assignments\seeMyGrades.html:18
 #: .\assignments\templates\assignments\seeSectionStudents.html:12
 #: .\assignments\templates\assignments\teacherAssignments.html:11
-msgid "Section" msgstr "Предмет"
+msgid "Section"
+msgstr "Предмет"
 
 #: .\assignments\templates\assignments\gradeStudent.html:10
-msgid "Score" msgstr "Поени"
+msgid "Score"
+msgstr "Поени"
 
 #: .\assignments\templates\assignments\gradeStudent.html:13
-msgid "ID" msgstr "ИД"
+msgid "ID"
+msgstr "ИД"
 
 #: .\assignments\templates\assignments\gradeStudent.html:14
 #: .\assignments\templates\assignments\seeSubmissions.html:16
-msgid "Assignment (Click to Download)" msgstr "Задачи (Превземи со кликнување на насловот)"
+msgid "Assignment (Click to Download)"
+msgstr "Задачи (Превземи со кликнување на насловот)"
 
 #: .\assignments\templates\assignments\gradeStudent.html:15
 #: .\assignments\templates\assignments\seeGradesPerSection.html:17
 #: .\assignments\templates\assignments\seeMyGrades.html:19
-msgid "Points" msgstr "Поени"
+msgid "Points"
+msgstr "Поени"
 
 #: .\assignments\templates\assignments\seeGradesPerSection.html:12
 #: .\assignments\templates\assignments\seeMyGrades.html:12
-msgid "Grades For" msgstr "Ученик"
+msgid "Grades For"
+msgstr "Ученик"
 
 #: .\assignments\templates\assignments\seeGradesPerSection.html:12
-msgid "Average Score" msgstr "Просек"
+msgid "Average Score"
+msgstr "Просек"
 
 #: .\assignments\templates\assignments\seeGradesPerSection.html:16
-msgid "Assignment Name" msgstr "Домашна работа"
+msgid "Assignment Name"
+msgstr "Домашна работа"
 
 #: .\assignments\templates\assignments\seeMyGrades.html:17
 #: .\assignments\templates\assignments\seeSubmissions.html:11
 msgid "Assignment"
-msgstr ""
+msgstr "Домашна работа"
 
 #: .\assignments\templates\assignments\seeSectionStudents.html:16
 #: .\assignments\templates\assignments\seeSubmissions.html:15
-msgid "Full Name" msgstr "Име"
+msgid "Full Name"
+msgstr "Име"
 
 #: .\assignments\templates\assignments\seeSubmissions.html:17
-msgid "Grade" msgstr "Оценка"
+msgid "Grade"
+msgstr "Оценка"
+
+#: .\assignments\views.py:40
+msgid "All fields are required!"
+msgstr "Сите полиња се задолжителни!"
+
+#: .\assignments\views.py:44
+#, fuzzy
+#| msgid "Assignment Name"
+msgid "Assignment Not Created!"
+msgstr "Домашна работа"
+
+#: .\assignments\views.py:93
+#, fuzzy
+#| msgid "Assignment Name"
+msgid "Assignment Submitted!"
+msgstr "Домашна работа"
+
+#: .\assignments\views.py:95
+msgid "All fields are required"
+msgstr "Сите полиња се задолжителни"
+
+#: .\assignments\views.py:96
+msgid "Assignment is not Submitted! Please Try again."
+msgstr "Домашната работа не е објавена! Ве молиме обидете се повторно."
+
+#: .\assignments\views.py:129
+msgid "Student not found!"
+msgstr "Студентот не е запишан на тој предмет!"
+
+#: .\assignments\views.py:162
+#, fuzzy
+#| msgid "Assignment Name"
+msgid "Assignment Graded!"
+msgstr "Домашна работа"
+
+#: .\assignments\views.py:166
+msgid "Assignment is not ready to be graded!"
+msgstr "Домашната работа не е готова за да биде оценета!"
+
+#: .\assignments\views.py:194
+msgid "Submissions not found"
+msgstr "Објавите не се пронајдени"
+
+#: .\assignments\views.py:204 .\assignments\views.py:217
+#: .\assignments\views.py:227 .\assignments\views.py:251
+msgid "Section not found!"
+msgstr "Предметот не е пронајден."

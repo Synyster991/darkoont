@@ -163,7 +163,24 @@ def gradeStudent(request):
 
             return redirect('home')
     except:
-        messages.info(request, _('Assignment is not ready to be graded!'))
+        # If the student didn't submit, teache can still give him a grade
+        try:
+            if request.method == 'POST':
+                studentID = User.objects.get(username=request.POST['studentID'])
+                assignmentID = AssignmentTeacherSide.objects.get(pk=request.POST['assignmentID'])
+                studentAssignments.objects.get(studentUser=studentID, assignment=assignmentID)
+        except studentAssignments.DoesNotExist:
+            studentID = User.objects.get(username=request.POST['studentID'])
+            assignmentID = AssignmentTeacherSide.objects.get(pk=request.POST['assignmentID'])
+
+            notSubmitted = studentAssignments()
+            notSubmitted.assignment = assignmentID
+            notSubmitted.points = request.POST['gradeID']
+            notSubmitted.document = '/static/student.png'
+            notSubmitted.studentUser = studentID
+            notSubmitted.save()
+
+        messages.info(request, _('Assignment Graded!'))
         return redirect('home')
 
 

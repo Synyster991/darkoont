@@ -26,7 +26,7 @@
                 <td>{{ gradedAssignment.assignment.title }}</td>
                 <td>{{ gradedAssignment.assignment.section.name }}</td>
                 {% if gradedAssignment.points == -1 %}
-                <td>Not Graded</td>
+                <td>{% trans "Not Graded" %}!</td>
                 {% else %}
                 <td>{{ gradedAssignment.points }}/{{ gradedAssignment.assignment.maxPoint }}</td>
                 {% endif %}

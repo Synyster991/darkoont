@@ -34,7 +34,7 @@ def create(request):
                 assignment.videoLink = request.POST['video']
                 assignment.save()
 
-                messages.info(request, 'Assignment Created!')
+                messages.info(request, _('Assignment Created!'))
                 return redirect('home')
             else:
                 return render(request, 'assignments/create.html', {"error":_("All fields are required!"), "availableSection": availableSection})

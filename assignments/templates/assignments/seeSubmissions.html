@@ -23,7 +23,11 @@
                     <td>{{ submi.studentUser.first_name }} {{ submi.studentUser.last_name }}</td>
                     <td><a class="text-muted" href="{{ submittedAssignments.document.url }}"
                         download>{{ submi.assignment.title }}</a></td>
+                        {% if submi.points != -1 %}
                         <td>{{ submi.points }}/{{ submi.assignment.maxPoint }}</td>
+                        {% else %}
+                        <td>{% trans "Not Graded" %}!</td>
+                        {% endif %}
                 </tr>
             {% endfor %}
         <tbody>

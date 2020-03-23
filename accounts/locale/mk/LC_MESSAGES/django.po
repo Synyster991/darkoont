@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 21:24-0400\n"
+"POT-Creation-Date: 2020-03-22 21:46-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgstr "Повтори лозинка"
 
 #: .\accounts\templates\accounts\signup.html:87
 #: .\accounts\templates\accounts\studentHome.html:13
-#: .\accounts\templates\accounts\studentHome.html:88
+#: .\accounts\templates\accounts\studentHome.html:90
 msgid "Student Version"
 msgstr "Студент"
 
@@ -69,7 +69,7 @@ msgid "Pick a Class"
 msgstr "Одбери предмет"
 
 #: .\accounts\templates\accounts\signup.html:105
-#: .\accounts\templates\accounts\studentHome.html:99
+#: .\accounts\templates\accounts\studentHome.html:101
 #: .\accounts\templates\accounts\teacherHome.html:13
 msgid "Teacher Version"
 msgstr "Професор"
@@ -83,12 +83,12 @@ msgid "Teacher Code is for teacher use only"
 msgstr "Кодот за професори е само во нивна употреба"
 
 #: .\accounts\templates\accounts\signup.html:123
-#: .\accounts\templates\accounts\studentHome.html:107
+#: .\accounts\templates\accounts\studentHome.html:109
 msgid "Email this form"
 msgstr "Пратете ја оваа апликација"
 
 #: .\accounts\templates\accounts\signup.html:123
-#: .\accounts\templates\accounts\studentHome.html:107
+#: .\accounts\templates\accounts\studentHome.html:109
 msgid ""
 "to filipdimi1999@gmail.com to get your section and Teacher Code for "
 "registration"
@@ -139,6 +139,7 @@ msgid "Due Date"
 msgstr "Краен рок"
 
 #: .\accounts\templates\accounts\studentHome.html:59
+#: .\accounts\templates\accounts\studentHome.html:86
 msgid "Instructions"
 msgstr "Инструкции"
 
@@ -148,37 +149,35 @@ msgstr "Прикажи"
 
 #: .\accounts\templates\accounts\studentHome.html:81
 msgid ""
-"is open-source learning management system. The Primary goal of Mr. Root is "
-"to help students and teachers to stay connected."
+" is a open-source learning management system. The Primary goal of Mr. Root "
+"is to help students and teachers to stay connected."
 msgstr ""
 " е интернет платформа наменета за работа професор-ученик со цел да постои "
 "контакт на учениците со нивните професори со кој имаат можност на онлајн "
 "часови."
 
-#: .\accounts\templates\accounts\studentHome.html:89
-#: .\accounts\templates\accounts\studentHome.html:100
+#: .\accounts\templates\accounts\studentHome.html:91
+#: .\accounts\templates\accounts\studentHome.html:102
 msgid "This version gives you"
 msgstr "Оваа опција овозможува"
 
-#: .\accounts\templates\accounts\studentHome.html:91
+#: .\accounts\templates\accounts\studentHome.html:93
 msgid "New videos every week"
 msgstr "Неделни видеа"
 
-#: .\accounts\templates\accounts\studentHome.html:92
+#: .\accounts\templates\accounts\studentHome.html:94
 msgid "New assignments to practice coding every week"
 msgstr "Неделни домашни задачи"
 
-#: .\accounts\templates\accounts\studentHome.html:93
+#: .\accounts\templates\accounts\studentHome.html:95
 msgid "Support"
 msgstr "поддршка"
 
-#: .\accounts\templates\accounts\studentHome.html:94
-msgid "Graded assignments with feedback"
-msgstr ""
-"Оценета домашна работа со коментар (или Коментар и оцена за извршена домашна "
-"задача)"
-
 #: .\accounts\templates\accounts\studentHome.html:96
+msgid "Graded assignments with feedback"
+msgstr "Коментар и оцена за извршена домашна задача"
+
+#: .\accounts\templates\accounts\studentHome.html:98
 msgid ""
 "Make sure to register for this version before the starting date or you will "
 "be left behind. There are due dates so make sure to stay on track"
@@ -187,15 +186,15 @@ msgstr ""
 "заостанете со материјалот. Крајниот рок постои за да ја одржува вашата "
 "активност."
 
-#: .\accounts\templates\accounts\studentHome.html:102
+#: .\accounts\templates\accounts\studentHome.html:104
 msgid "Public and Private sections"
 msgstr "Приватни и јавни часови"
 
-#: .\accounts\templates\accounts\studentHome.html:103
+#: .\accounts\templates\accounts\studentHome.html:105
 msgid "Create assignment droplets"
 msgstr "Можност на ученикот да прикачи докумени"
 
-#: .\accounts\templates\accounts\studentHome.html:104
+#: .\accounts\templates\accounts\studentHome.html:106
 msgid "Grade assignments"
 msgstr "Оценување на домашна работа"
 
@@ -235,7 +234,7 @@ msgstr " Оценки"
 
 #: .\accounts\templates\accounts\teacherHome.html:84
 msgid "Grade Student's Assignment"
-msgstr "Оцени домашната работа"
+msgstr "Оцени домашна работа"
 
 #: .\accounts\templates\accounts\teacherHome.html:106
 msgid "Grade Submission"

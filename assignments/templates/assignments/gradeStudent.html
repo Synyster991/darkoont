@@ -23,7 +23,7 @@
             {% if validAssignment.points > -1 %}
             <td>{{ validAssignment.points }}/{{ validAssignment.assignment.maxPoint }}</td>
             {% else %}
-            <td>Not Graded!</td>
+            <td>{% trans "Not Graded" %}!</td>
             {% endif %}
         </tr>
         {% endfor %}
